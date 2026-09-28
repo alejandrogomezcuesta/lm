@@ -205,6 +205,7 @@ sudo mv ~/index.html /var/www/html/index.html
 sudo chown www-data:www-data /var/www/html/index.html
 # Cambia los permisos
 sudo chmod 644 /var/www/html/index.html
+```
 
 ## Paso 6. Sigue tu propio feed desde Feedly
 
