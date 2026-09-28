@@ -1,4 +1,4 @@
-# Tema 1 XML
+# Información general
 
 ## Teoría
 

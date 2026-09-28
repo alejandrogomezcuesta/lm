@@ -1,4 +1,4 @@
-# Tema 3 RSS. Publica tu propio servicio RSS
+# Publica tu propio servicio RSS
 
 ## Introducción
 
