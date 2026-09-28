@@ -221,7 +221,7 @@ Otros lectores que puedes probar son [Inoreader](https://www.inoreader.com/), [N
 
 ## Entrega en Classroom
 
-Envía estos tres elementos:
+Envía estos tres elementos por Classroom al profesor:
 
 - El fichero `feed.xml` que has publicado.
 - El fichero `index.html` que has publicado.
