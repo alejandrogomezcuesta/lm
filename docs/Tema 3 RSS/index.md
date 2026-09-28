@@ -70,6 +70,8 @@ Puedes escoger, por ejemplo, tecnología y ciberseguridad, videojuegos, deportes
 Guarda el fichero como `feed.xml`, con codificación UTF-8. Este ejemplo trata sobre tecnología sostenible. Las direcciones `https://ejemplo.com/...` son marcadores de posición: sustitúyelas por enlaces válidos relacionados con tus noticias. Mantén los cuatro elementos `<item>` y cambia sus textos por tus propias noticias.
 
 ```xml
+<!-- Declararación de fichero XML. -->
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Declara el elemento raíz RSS y su versión. -->
 <rss version="2.0">
   <!-- Agrupa los datos generales del canal y todas sus noticias. -->
