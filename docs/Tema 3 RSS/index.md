@@ -39,9 +39,9 @@ AWS puede cobrar por direcciones IPv4 públicas y otros recursos, según la cuen
 
 ### 1.3. Conéctate por SSH e instala Apache
 
-Abre PowerShell en tu ordenador, desde la carpeta donde guardaste el fichero `.pem`. Sustituye el nombre de la clave y la IP por los tuyos. La cuenta predeterminada de Ubuntu en la imagen de AWS es `ubuntu`.
+Abre bash en tu ordenador, desde la carpeta donde guardaste el fichero `.pem`. Sustituye el nombre de la clave y la IP por los tuyos. La cuenta predeterminada de Ubuntu en la imagen de AWS es `ubuntu`.
 
-```powershell
+```bash
 # Abre una sesión segura en la instancia usando la clave privada y la IP pública estática.
 ssh -i .\asir-rss.pem ubuntu@IP_PUBLICA
 ```
@@ -142,20 +142,29 @@ Los comentarios `<!-- ... -->` son comentarios XML: ayudan a entender la plantil
 
 ## Paso 3. Sube los ficheros al servidor por SSH
 
-Guarda `feed.xml` y la plantilla `index.html` del paso 5 en una carpeta de tu ordenador. Abre PowerShell en esa carpeta. El siguiente comando copia ambos archivos a la carpeta personal del usuario `ubuntu` de la instancia:
+Guarda `feed.xml` en una carpeta de tu ordenador. Abre la terminal en esa carpeta. El siguiente comando copia ambos archivos a la carpeta personal del usuario `ubuntu` de la instancia:
 
-```powershell
-# Copia el feed y la página HTML desde tu ordenador a la carpeta personal de Ubuntu.
-scp -i .\asir-rss.pem .\feed.xml .\index.html ubuntu@IP_PUBLICA:~/
+```bash
+# Copia el fichero feed.xml a la carpeta personal de Ubuntu.
+scp -i asir-rss.pem feed.xml ubuntu@IP_PUBLICA:~
 ```
 
-Ahora instala los dos archivos en el directorio público de Apache. Ejecuta estos comandos desde PowerShell en tu ordenador; cada comando se conecta por SSH y coloca el archivo con permisos de lectura para el servidor web:
+Ahora en el servidor ubuntu donde se está ejecutando Apache, conéctate con SSH (si no estabas ya conectado) y cambia el usuario y grupo del fichero así como sus permisos:
 
-```powershell
-# Instala feed.xml en el directorio público de Apache y asigna su propiedad al usuario del servidor web.
-ssh -i .\asir-rss.pem ubuntu@IP_PUBLICA "sudo install -o www-data -g www-data -m 644 ~/feed.xml /var/www/html/feed.xml"
-# Instala index.html como página principal pública de Apache.
-ssh -i .\asir-rss.pem ubuntu@IP_PUBLICA "sudo install -o www-data -g www-data -m 644 ~/index.html /var/www/html/index.html"
+```bash
+# Nos conectamos al contenedor de ubuntu
+ssh -i asir-rss.pem ubuntu@IP_PUBLICA
+```
+
+Dentro del contenedor movemos el fichero `feed.xml` y lo configuramos para que Apache pueda trabajar con él.
+
+```bash
+# Mueve el fichero `feed.xml` a la carpeta donde de Apache
+sudo mv ~/feed.xml /var/www/html/feed.xml
+# Cambia el usuario dueño y el grupo
+sudo chown www-data:www-data /var/www/html/feed.xml
+# Cambia los permisos
+sudo chmod 644 /var/www/html/feed.xml
 ```
 
 Comprueba en el navegador que `http://IP_PUBLICA/` muestra tu página y que `http://IP_PUBLICA/feed.xml` abre el feed. Si ya existía un `index.html` de Apache, el segundo comando lo reemplaza en la instancia.
@@ -179,6 +188,23 @@ Descarga la [plantilla `index.html`](plantilla/index.html) incluida con esta pr�
 ```
 
 El atributo `href="feed.xml"` indica que el feed está junto a la página. Por eso, en el paso 3 ambos se copian a `/var/www/html/`. Si cambias el nombre o la ubicación del feed, actualiza también `href` para que coincida.
+
+Como hicimos con el fichero `feed.xml`, ahora tenemos que subir este otro fichero `index.html` y configurar su usuario, grupo y permisos.
+
+```bash
+# Nos conectamos al contenedor de ubuntu
+ssh -i asir-rss.pem ubuntu@IP_PUBLICA
+```
+
+Dentro del contenedor movemos el fichero `feed.xml` y lo configuramos para que Apache pueda trabajar con él.
+
+```bash
+# Mueve el fichero `index.html` a la carpeta donde de Apache
+sudo mv ~/index.html /var/www/html/index.html
+# Cambia el usuario dueño y el grupo
+sudo chown www-data:www-data /var/www/html/index.html
+# Cambia los permisos
+sudo chmod 644 /var/www/html/index.html
 
 ## Paso 6. Sigue tu propio feed desde Feedly
 
