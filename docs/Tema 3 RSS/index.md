@@ -6,38 +6,63 @@ En esta práctica crearás un feed RSS, lo publicarás en un servidor Ubuntu con
 
 > **Importante:** usaremos una instancia EC2 (una máquina virtual) y Apache. No crearemos un contenedor Docker. En esta práctica, subir los archivos "al servidor" significa copiarlos al directorio que Apache publica en la web.
 
+
+
 ## Objetivos
 
 - Crear una instancia Ubuntu accesible desde Internet y asignarle una dirección IP pública estática.
 - Crear un feed RSS 2.0 con al menos cuatro noticias originales y publicarlo en Apache.
 - Comprobar el feed con el validador oficial y suscribirse a él desde Feedly.
 
-## Paso 1. Prepara el servidor Ubuntu en AWS
+## Paso 1. Entra en AWS Academy y abre la consola de AWS
 
-### 1.1. Crea una instancia EC2
+1. Abre [AWS Academy](https://awsacademy.instructure.com/) e inicia sesión con las credenciales que te haya proporcionado tu centro.
+2. Entra en el curso de esta asignatura y abre el laboratorio de AWS, normalmente llamado **AWS Academy Learner Lab** o con un nombre similar.
+3. Pulsa **Start Lab** y espera a que el laboratorio aparezca como iniciado. Mientras se inicia, el indicador puede mostrar un estado de espera.
+4. Cuando el laboratorio esté activo, pulsa **AWS** para abrir la consola de AWS en una nueva pestaña.
+5. Comprueba que la consola se ha abierto con la cuenta temporal del laboratorio antes de continuar. Trabaja solo con los recursos necesarios para esta práctica y detén el laboratorio cuando termines.
+
+![Entrada a AWS Console](image-1.png)
+
+
+## Paso 2. Prepara el servidor Ubuntu en AWS
+### 2.1. Crea una instancia EC2
 
 1. Entra en la consola de AWS y abre **EC2**. Comprueba que estás en la región que vas a utilizar; los recursos se crean por región.
-2. Pulsa **Launch instance** y asigna un nombre, por ejemplo, `servidor-rss-1asir`.
-3. En **Application and OS Images**, selecciona una imagen oficial **Ubuntu Server LTS** (por ejemplo, Ubuntu Server 24.04 LTS).
-4. Elige un tipo de instancia pequeño permitido por la cuenta del centro. Las condiciones de la capa gratuita y los precios pueden cambiar; confirma con tu profesor qué cuenta y tipo debes usar.
+2. Pulsa **Lanzar la instancia** y asigna un nombre, por ejemplo, `servidor-rss-1asir`.
+3. En **Imágenes de aplicaciones y sistemas operativos**, selecciona una imagen oficial **Ubuntu** (Ubuntu Server 26.04 LTS).
+4. Elige un tipo de instancia pequeño permitido para tu cuenta del centro. Nosotros usaremos **t3.micro**.
 5. Crea un par de claves para conectarte por SSH. Descarga el fichero `.pem`, guárdalo en un lugar seguro y no lo compartas ni lo subas a Classroom.
 6. En la configuración de red, crea o selecciona un grupo de seguridad con estas reglas de entrada:
-   - **SSH**, puerto `22`, origen **My IP**. No abras SSH a todo Internet (`0.0.0.0/0`).
-   - **HTTP**, puerto `80`, origen `Anywhere-IPv4` (`0.0.0.0/0`), para que el feed y la página sean públicos.
-7. Inicia la instancia y espera a que su estado sea **Running** y sus comprobaciones estén correctas.
+   - **SSH**, puerto `22`, desde cualquier lugart (`0.0.0.0/0`).
+   - **Permitir el tráfico HTTP desde Internet**, puerto `80`.
+7. Ya no hay que tocar ninguna configuración más.
+8. Ya podemos hacer clic sobre el botón **Lanzar instancia**.
 
-### 1.2. Asígnale una IP estática
+> **Importante**. Guarda ese fichero `.pem` en algún sitio donde lo encuentres porque no lo podrás volver a descargar.
+> No está todo perdido: siempre puedes crear un par de claves nuevas.
+
+![Instancia creada y funcionando](image-2.png)
+
+### 2.2. Conéctate a la instancia creada
+
+En este momento ya puedes conectarte a la instancia usando la dirección IPv4 pública que aparece en sus detalles. Esta dirección es automática y puede cambiar si detienes y vuelves a iniciar la instancia, por lo que no es una dirección fija.
+
+Si necesitas conservar siempre la misma dirección, puedes reservar y asociar una **Elastic IP** en el apartado 2.3. En esta práctica no vamos a hacerlo ahora: continuaremos usando la IPv4 pública automática.
+
+
+### 2.3. (Opcional) Asígnale una IP estática
 
 La IP pública automática puede cambiar si se detiene y vuelve a iniciar la instancia. Para mantener una dirección fija, reserva y asocia una **Elastic IP**:
 
-1. En EC2, abre **Network & Security > Elastic IPs** y pulsa **Allocate Elastic IP address**.
+1. En EC2, abre **Red y seguridad > Direcciones IP elásticas** y pulsa **Asignar dirección IP elástica**.
 2. Selecciona la dirección reservada y elige **Actions > Associate Elastic IP address**.
 3. Selecciona la instancia `servidor-rss-1asir` y confirma la asociación.
 4. Copia la dirección IPv4 pública asignada. En los ejemplos siguientes, sustituye `IP_PUBLICA` por esa dirección.
 
 AWS puede cobrar por direcciones IPv4 públicas y otros recursos, según la cuenta y las tarifas vigentes. Revisa los costes con tu profesor y no dejes recursos encendidos después de la práctica sin autorización.
 
-### 1.3. Conéctate por SSH e instala Apache
+### 2.4. Conéctate por SSH e instala Apache
 
 Abre bash en tu ordenador, desde la carpeta donde guardaste el fichero `.pem`. Sustituye el nombre de la clave y la IP por los tuyos. La cuenta predeterminada de Ubuntu en la imagen de AWS es `ubuntu`.
 
@@ -46,22 +71,24 @@ Abre bash en tu ordenador, desde la carpeta donde guardaste el fichero `.pem`. S
 ssh -i .\asir-rss.pem ubuntu@IP_PUBLICA
 ```
 
-Si aparece una pregunta sobre la autenticidad del servidor, escribe `yes` solo si la IP corresponde a tu instancia. Ya dentro de Ubuntu, ejecuta:
+Date cuenta que el modificador `-i` sirve para indicar el fichero de tu clave. Después se pone el nombre del usuario, que es `ubuntu`, una arroba, y finalmente la ip o el DNS público que AWS nos da de la instancia.
+
+Si tras la ejecución de la orden anterior aparece una pregunta sobre la autenticidad del servidor, escribe `yes` solo si la IP corresponde a tu instancia. Ya dentro de Ubuntu, ejecuta:
 
 ```bash
 # Actualiza la lista de paquetes disponibles en Ubuntu.
 sudo apt update
 # Instala el servidor web Apache sin pedir confirmación interactiva.
 sudo apt install apache2 -y
-# Configura Apache para iniciarse automáticamente y lo pone en marcha ahora.
-sudo systemctl enable --now apache2
+# Configura Apache para iniciarse automáticamente con el sistema operativo.
+sudo systemctl enable apache2
 # Muestra el estado de Apache para comprobar que está activo.
-sudo systemctl status apache2 --no-pager
+sudo systemctl status apache2
 ```
 
 Abre `http://IP_PUBLICA` en el navegador. Si ves la página predeterminada de Apache, el servidor responde. Si no carga, revisa que Apache esté activo y que el grupo de seguridad permita tráfico HTTP por el puerto 80.
 
-## Paso 2. Crea el fichero RSS
+## Paso 3. Crea el fichero RSS
 
 Un feed RSS es un documento XML que describe una fuente y sus noticias. En clase seguimos el [tutorial de RSS de Eniun](https://www.eniun.com/tutorial-rss/); consúltalo para repasar los elementos y el formato.
 
@@ -140,7 +167,7 @@ Guarda el fichero como `feed.xml`, con codificación UTF-8. Este ejemplo trata s
 
 Los comentarios `<!-- ... -->` son comentarios XML: ayudan a entender la plantilla y no aparecen como noticias en el lector. Si escribes un ampersand (`&`) dentro de un valor XML, cámbialo por `&amp;`; por ejemplo, `Ciencia &amp; tecnología`.
 
-## Paso 3. Sube los ficheros al servidor por SSH
+## Paso 4. Sube los ficheros al servidor por SSH
 
 Guarda `feed.xml` en una carpeta de tu ordenador. Abre la terminal en esa carpeta. El siguiente comando copia ambos archivos a la carpeta personal del usuario `ubuntu` de la instancia:
 
@@ -169,16 +196,16 @@ sudo chmod 644 /var/www/html/feed.xml
 
 Comprueba en el navegador que `http://IP_PUBLICA/` muestra tu página y que `http://IP_PUBLICA/feed.xml` abre el feed. Si ya existía un `index.html` de Apache, el segundo comando lo reemplaza en la instancia.
 
-## Paso 4. Valida el feed XML
+## Paso 5. Valida el feed XML
 
 1. Abre el [W3C Feed Validation Service](https://validator.w3.org/feed/).
 2. Introduce la dirección pública completa de tu feed: `http://IP_PUBLICA/feed.xml`.
 3. Pulsa **Check**. El validador debe poder acceder al archivo y no mostrar errores de formato.
-4. Si hay errores, lee el mensaje y corrige `feed.xml` en tu ordenador. Vuelve a subirlo con el comando `scp` y el comando SSH de instalación del paso 3, y valida la dirección de nuevo.
+4. Si hay errores, lee el mensaje y corrige `feed.xml` en tu ordenador. Vuelve a subirlo con el comando `scp` y el comando SSH de instalación del paso 4, y valida la dirección de nuevo.
 
 Si el validador no puede descargar el feed, prueba primero la dirección en una ventana privada del navegador y revisa que la instancia siga encendida, Apache esté activo y el puerto 80 esté abierto. No subas una captura de un feed que todavía tenga errores sin corregir.
 
-## Paso 5. Publica también `index.html`
+## Paso 6. Publica también `index.html`
 
 Descarga la [plantilla `index.html`](plantilla/index.html) incluida con esta práctica. Es una página sencilla que enlaza el feed desde el `<head>` mediante la línea solicitada:
 
@@ -187,7 +214,7 @@ Descarga la [plantilla `index.html`](plantilla/index.html) incluida con esta pr�
 <link rel="alternate" title="RSS" href="feed.xml" type="application/rss+xml" />
 ```
 
-El atributo `href="feed.xml"` indica que el feed está junto a la página. Por eso, en el paso 3 ambos se copian a `/var/www/html/`. Si cambias el nombre o la ubicación del feed, actualiza también `href` para que coincida.
+El atributo `href="feed.xml"` indica que el feed está junto a la página. Por eso, en el paso 4 ambos se copian a `/var/www/html/`. Si cambias el nombre o la ubicación del feed, actualiza también `href` para que coincida.
 
 Como hicimos con el fichero `feed.xml`, ahora tenemos que subir este otro fichero `index.html` y configurar su usuario, grupo y permisos.
 
@@ -207,7 +234,7 @@ sudo chown www-data:www-data /var/www/html/index.html
 sudo chmod 644 /var/www/html/index.html
 ```
 
-## Paso 6. Sigue tu propio feed desde Feedly
+## Paso 7. Sigue tu propio feed desde Feedly
 
 1. Entra en [Feedly](https://feedly.com/) y crea una cuenta o inicia sesión.
 2. Usa **Add content** o la opción equivalente para añadir una fuente. La interfaz puede cambiar ligeramente.

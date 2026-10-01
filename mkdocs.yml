@@ -19,6 +19,7 @@ theme:
     - search.suggest
     - search.highlight
     - content.code.copy
+    - content.code.select
     - content.code.annotate
     - toc.follow
   font:
@@ -44,9 +45,6 @@ plugins:
 markdown_extensions:
   - admonition
   - attr_list
-  - codehilite:
-      guess_lang: false
-      use_pygments: true
   - def_list
   - footnotes
   - md_in_html
@@ -74,5 +72,4 @@ extra:
 
 extra_javascript:
   - https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs
-
 # MkDocs genera automáticamente la navegación a partir de docs/ al omitir nav:.
