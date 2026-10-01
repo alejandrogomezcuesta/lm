@@ -124,7 +124,7 @@ Si el validador no puede descargar el feed, prueba primero la dirección en una 
 
 Copia y pega el siguiente código a un fichero llamado `index.html`. Es una página sencilla que enlaza el feed desde el `<head>` mediante la línea 9. **Completa correctamente esa línea**. Además, **incluye tu nombre** en la línea 13.
 
-```html hl_lines="9 12"
+```html hl_lines="9 12" linenums="1"
 <!doctype html>
 <html lang="es">
 <head>
