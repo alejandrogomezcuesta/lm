@@ -122,9 +122,9 @@ Si el validador no puede descargar el feed, prueba primero la dirección en una 
 
 ## 6. Publica también `index.html`
 
-Copia y pega el siguiente código a un fichero llamado `index.html`. Es una página sencilla que enlaza el feed desde el `<head>` mediante la línea 8. **Completa correctamente esa línea**.
+Copia y pega el siguiente código a un fichero llamado `index.html`. Es una página sencilla que enlaza el feed desde el `<head>` mediante la línea 9. **Completa correctamente esa línea**. Además, **incluye tu nombre** en la línea 13.
 
-```html hl_lines="7-8"
+```html hl_lines="9 12"
 <!doctype html>
 <html lang="es">
 <head>
@@ -132,14 +132,17 @@ Copia y pega el siguiente código a un fichero llamado `index.html`. Es una pág
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi servicio RSS</title>
   
-  <!-- COMPLETA ESTA LÍNEA A CONTINUACIÓN CORRECTAMENTE -->
-  <link rel="alternate" title="RSS" href="" type="application/rss+xml" />
-
+  <!-- Completa esta línea correctamente -->
+  <link rel="alternate" title="RSS" href="AQUÍ FALTA ALGO" type="application/rss+xml" />
 </head>
 <body>
   <h1>Mi servicio RSS</h1>
   <p>Bienvenido a mi canal de noticias. Suscríbete al feed para recibir las novedades.</p>
   <p><a href="feed.xml">Ver el feed RSS</a></p>
+
+  <hr>
+  <!-- Completa aquí con tu nombre. -->
+  <p>Soy: <b>TU NOMBRE AQUÍ</b></p>
 </body>
 </html>
 ```
@@ -176,8 +179,8 @@ sudo chmod 644 /var/www/html/index.html
 
 Envía estos tres elementos por Classroom al profesor:
 
-- El fichero `feed.xml` que has publicado.
-- El fichero `index.html` que has publicado.
-- Una captura de pantalla de Feedly donde se vea el nombre de tu fuente y las noticias recibidas.
+- Una captura de pantalla del fichero `feed.xml` que has publicado visualizado con tu navegador a través del contenedor AWS publicado en internet.
+- Una captura del fichero `index.html` que has publicado visualizado con tu navegador a través del contenedor AWS publicado en internet.
+- Una captura de pantalla de tu cliente RSS donde se vea tu contenido publicado.
 
 Antes de entregar, confirma que el feed se abre desde Internet, supera la validación XML y aparece en Feedly. **No entregues ni compartas el fichero `.pem`**, porque es una clave privada de acceso al servidor.
