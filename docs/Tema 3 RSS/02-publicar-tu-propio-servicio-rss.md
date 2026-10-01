@@ -12,7 +12,7 @@ En esta práctica crearás un feed RSS, lo publicarás en un servidor Ubuntu con
 - Crear un feed RSS 2.0 con al menos cuatro noticias originales y publicarlo en Apache.
 - Comprobar el feed con el validador oficial y suscribirse a él desde Feedly.
 
-## Paso 1. Entra en AWS Academy y abre la consola de AWS
+## 1. Entra en AWS Academy y abre la consola de AWS
 
 1. Abre [AWS Academy](https://awsacademy.instructure.com/) e inicia sesión con las credenciales que te haya proporcionado tu profesor.
 2. Entra en el curso de esta asignatura y abre el laboratorio de AWS, normalmente llamado **AWS Academy Learner Lab** o con un nombre similar.
@@ -22,7 +22,7 @@ En esta práctica crearás un feed RSS, lo publicarás en un servidor Ubuntu con
 
 ![Entrada a AWS Console](image-1.png)
 
-## Paso 2. Prepara el servidor Ubuntu en AWS
+## 2. Prepara el servidor Ubuntu en AWS
 ### 2.1. Crea una instancia EC2
 
 1. Entra en la consola de AWS y abre **EC2**.
@@ -74,7 +74,7 @@ Para comprobar que Apache funciona, abre el navegador y escribe `http://IP_PUBLI
 
 Si aparece la página predeterminada de Apache, el servidor responde. Si no carga, revisa que Apache esté activo y que el grupo de seguridad permita tráfico HTTP por el puerto 80.
 
-## Paso 3. Crea el fichero RSS
+## 3. Crea el fichero RSS
 
 Un feed RSS es un documento XML que describe una fuente y sus noticias. En clase seguimos el [tutorial de RSS de Eniun](https://www.eniun.com/tutorial-rss/); consúltalo para repasar los elementos y el formato.
 
@@ -82,7 +82,7 @@ Puedes escoger, por ejemplo, tecnología y ciberseguridad, videojuegos, deportes
 
 Guarda el fichero como `feed.xml`. Puedes ayudarte para crearlo con Visual Studio Code.
 
-## Paso 4. Sube los ficheros al servidor por SSH
+## 4. Sube los ficheros al servidor por SSH
 
 Abre la terminal en la carpeta dondes esté el fichero `feed.xml`. La siguiente orden copia el fichero a la carpeta personal del usuario `ubuntu` de la instancia de AWS:
 
@@ -111,7 +111,7 @@ sudo chmod 644 /var/www/html/feed.xml
 
 Comprueba en el navegador que `http://IP_PUBLICA/` sigue mostrando tu página de Apache recién instalado en Ubuntu y que `http://IP_PUBLICA/feed.xml` abre el feed. Si ya existía un `index.html` de Apache, el segundo comando lo reemplaza en la instancia.
 
-## Paso 5. Valida el feed XML
+## 5. Valida el feed XML
 
 1. Abre el [W3C Feed Validation Service](https://validator.w3.org/feed/).
 2. Introduce la dirección pública completa de tu feed: `http://IP_PUBLICA/feed.xml`.
@@ -120,7 +120,7 @@ Comprueba en el navegador que `http://IP_PUBLICA/` sigue mostrando tu página de
 
 Si el validador no puede descargar el feed, prueba primero la dirección en una ventana privada del navegador y revisa que la instancia siga encendida, Apache esté activo y el puerto 80 esté abierto. No subas una captura de un feed que todavía tenga errores sin corregir.
 
-## Paso 6. Publica también `index.html`
+## 6. Publica también `index.html`
 
 Copia y pega el siguiente código a un fichero llamado `index.html`. Es una página sencilla que enlaza el feed desde el `<head>` mediante la línea 8. **Completa correctamente esa línea**.
 
@@ -164,7 +164,7 @@ sudo chown www-data:www-data /var/www/html/index.html
 sudo chmod 644 /var/www/html/index.html
 ```
 
-## Paso 7. Sigue tu propio RSS
+## 7. Sigue tu propio RSS
 
 1. Entra en un cliente RSS.
 2. Usa **Añadir contenido** o la opción equivalente para añadir una fuente de tu cliente.
@@ -172,7 +172,7 @@ sudo chmod 644 /var/www/html/index.html
 4. Pulsa **Follow** o **Seguir**.
 5. Comprueba que aparecen tus cuatro noticias. Puedes actualizar el feed después y volver a cargarlo para observar cómo llegan las novedades.
 
-## Entrega en Classroom
+## 8. Entrega en Classroom
 
 Envía estos tres elementos por Classroom al profesor:
 
