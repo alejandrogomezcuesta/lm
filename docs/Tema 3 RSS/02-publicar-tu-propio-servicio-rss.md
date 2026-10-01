@@ -171,9 +171,10 @@ sudo chmod 644 /var/www/html/index.html
 
 1. Entra en un cliente RSS.
 2. Usa **Añadir contenido** o la opción equivalente para añadir una fuente de tu cliente.
-3. Pega la dirección directa `http://IP_PUBLICA/feed.xml` y selecciona el resultado que corresponde a tu canal.
-4. Pulsa **Follow** o **Seguir**.
-5. Comprueba que aparecen tus cuatro noticias. Puedes actualizar el feed después y volver a cargarlo para observar cómo llegan las novedades.
+3. Pega la dirección de tu sitio web `http://IP_PUBLICA` y selecciona el resultado que corresponde a tu canal.
+4. Fíjate que no ponemos el fichero `feed.xml` directamente, ya que el cliente rss lo encuentra gracias a la etiqueta `<link>` que está puesta en la sección `<head>` del fichero `index.html`.
+5. Pulsa **Follow** o **Seguir**.
+6. Comprueba que aparecen tus cuatro noticias. Puedes actualizar el feed después y volver a cargarlo para observar cómo llegan las novedades.
 
 ## 8. Entrega en Classroom
 
