@@ -4,8 +4,8 @@
 
 [Curso de XML que vamos a seguir en clase](https://www.eniun.com/curso-xml/)
 
-- Del punto "7. Documentos bien formados y válidos", solo entra lo de bien formados. Lo de válidos lo veremos en el tema 4.
 - El punto "5. Cómo asociar un archivo CSS a un documento XML" no entra.
+- El punto "7. Documentos bien formados y válidos", solo entra lo de bien formados. Lo de válidos lo veremos en el tema 4.
 
 **Para avanzar más:**
 
@@ -15,7 +15,10 @@
 
 ## Ejercicios
 
-[Ejercicios como los que habrá en el examen](https://docs.google.com/document/d/1sE1-ItopnTTM-HURFJGtP_qRivcxmSgfQb0Bd3DVONE/edit?usp=classroom_web&authuser=0)
+- [Ejercicios como los que habrá en el examen](https://docs.google.com/document/d/1sE1-ItopnTTM-HURFJGtP_qRivcxmSgfQb0Bd3DVONE/edit?usp=classroom_web&authuser=0)
+- [Los mismos ejercicios en web](02-ejercicios.md)
+- [Solución de los ejercicios](03-ejercicios-solucion.md)
+
 
 ## Presentaciones complementarias
 
