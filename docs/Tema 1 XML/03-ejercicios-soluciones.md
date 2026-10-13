@@ -1,4 +1,4 @@
-# Ejercicios XML
+# Ejercicios XML (Soluciones)
 
 ## ¿Dónde están los ficheros que mencionan los ejercicios?
 
