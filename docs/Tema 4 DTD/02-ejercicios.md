@@ -313,6 +313,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-6
 
+
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE countries [
