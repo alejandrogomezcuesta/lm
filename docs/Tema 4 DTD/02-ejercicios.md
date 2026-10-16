@@ -47,7 +47,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <colors>
   <color>dark blue</color>
-  <color>yellow</color>
+  <size>large</size>
 </colors>
 ```
 
@@ -62,7 +62,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <flowers>
   <flower>rosa</flower>
-  <flower>tulipán</flower>
+  <petal>tulipán</petal>
 </flowers>
 ```
 
@@ -77,7 +77,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <animals>
   <animal>perro</animal>
-  <animal>gato</animal>
+  <mammal>gato</mammal>
 </animals>
 ```
 
@@ -94,8 +94,8 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <writers>
   <writer>
-    <name>Mario Vargas Llosa</name>
     <birth>28 de marzo de 1936</birth>
+    <name>Mario Vargas Llosa</name>
   </writer>
   <writer>
     <name>Milan Kundera</name>
@@ -145,7 +145,8 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 <agenda>
   <contact>
     <name>Ayuntamiento</name>
-    <landPhone>010</landPhone>
+    <mobilePhone>010</mobilePhone>
+    <name>Ayuntamiento 2</name>
   </contact>
   <contact>
     <name>Emergencias</name>
@@ -189,7 +190,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE favourites [
   <!ELEMENT favourites (bookmark)>
-  <!ELEMENT bookmark (name, uri)>
+  <!ELEMENT bookmark (name, uri, uri)>
   <!ELEMENT name (#PCDATA)>
   <!ELEMENT uri (#PCDATA)>
 ]>
@@ -212,7 +213,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE anniversaires [
   <!ELEMENT anniversaires (anniversaire+)>
-  <!ELEMENT anniversaire (date, fact)>
+  <!ELEMENT anniversaire (date, fact, fact)>
   <!ELEMENT date (#PCDATA)>
   <!ELEMENT fact (#PCDATA)>
 ]>
@@ -241,7 +242,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT airports (airport*)>
   <!ELEMENT airport (name, closed?)>
   <!ELEMENT name (#PCDATA)>
-  <!ELEMENT closed EMPTY>
+  <!ELEMENT closed (#PCDATA)>
 ]>
 
 <airports>
@@ -261,7 +262,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flights [
   <!ELEMENT flights (flight*)>
-  <!ELEMENT flight (source, target)>
+  <!ELEMENT flight (source, target, source)>
   <!ELEMENT source (#PCDATA)>
   <!ELEMENT target (#PCDATA)>
 ]>
@@ -285,7 +286,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE spanishKings [
   <!ELEMENT spanishKings (king*, queen*)>
   <!ELEMENT king (name, father, mother)>
-  <!ELEMENT queen (name, father, mother)>
+  <!ELEMENT queen (name, father, mother, father)>
   <!ELEMENT name (#PCDATA)>
   <!ELEMENT father (#PCDATA)>
   <!ELEMENT mother (#PCDATA)>
@@ -319,7 +320,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT country (name, europeanUnion?, nato?)>
   <!ELEMENT name (#PCDATA)>
   <!ELEMENT europeanUnion EMPTY>
-  <!ELEMENT nato EMPTY>
+  <!ELEMENT nato (#PCDATA)>
 ]>
 
 <countries>
@@ -347,7 +348,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT colors (color*)>
   <!ELEMENT color (nameSvg, code)>
   <!ELEMENT nameSvg (#PCDATA)>
-  <!ELEMENT code (rgb | cmyk)>
+  <!ELEMENT code (rgb | cmyk | rgb)>
   <!ELEMENT rgb (#PCDATA)>
   <!ELEMENT cmyk (#PCDATA)>
 ]>
@@ -374,7 +375,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE accounting [
   <!ELEMENT accounting (note*)>
-  <!ELEMENT note ((incoming | expense)?, date, amount, concept)>
+  <!ELEMENT note ((incoming | expense)?, date, amount, concept, amount)>
   <!ELEMENT incoming EMPTY>
   <!ELEMENT expense EMPTY>
   <!ELEMENT date (#PCDATA)>
@@ -408,7 +409,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT from (#PCDATA)>
   <!ELEMENT for (#PCDATA)>
   <!ELEMENT hour (#PCDATA)>
-  <!ELEMENT text (#PCDATA | strong)*>
+  <!ELEMENT text (#PCDATA | strong | #PCDATA)*>
   <!ELEMENT strong (#PCDATA)>
 ]>
 
@@ -454,7 +455,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
   <!ATTLIST movie genre CDATA #IMPLIED>
 ]>
 
-<movie title="Stagecoach" genre="western"/>
+<movie title="Stagecoach" genre="western">Hola</movie>
 ```
 
 ### Ejercicio 3-3
@@ -470,7 +471,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <paintings>
   <painting title="Adan_y_Eva" author="Alberto Durero"/>
-  <painting title="Adan_y_Eva_2" author="Lucas Cranach, el Viejo"/>
+  <painting title="Adan_y_Eva" author="Lucas Cranach, el Viejo"/>
 </paintings>
 ```
 
@@ -486,7 +487,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 ]>
 
 <shoppingList>
-  <item name="milk" amount="12 litros"/>
+  <item name="milk"/>
   <item name="bread" amount="3 piezas"/>
 </shoppingList>
 ```
@@ -504,7 +505,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <football>
   <player name="Alfredo Di Stéfano" code="p1"/>
-  <player name="Edson Arantes do Nascimento, Pelé" code="p2"/>
+  <player name="Edson Arantes do Nascimento, Pelé" code="p1"/>
   <player name="Diego Armando Maradona" code="p3"/>
   <player name="Johan Cruyff" code="p4"/>
 </football>
@@ -529,7 +530,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
   <player name="Edison Arantes do Nascimento" code="ean"/>
   <player name="Diego Armando Maradona" code="dam"/>
   <player name="Johan Cruyff" code="jc"/>
-  <team name="Società Sportiva Calcio Napoli" players="dam"/>
+  <team name="Società Sportiva Calcio Napoli" players="dam p5"/>
   <team name="Fútbol Club Barcelona" players="jc dam"/>
 </football>
 ```
@@ -544,7 +545,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book [
   <!ELEMENT book EMPTY>
-  <!ATTLIST book author CDATA #REQUIRED>
+  <!ATTLIST book author CDATA #REQUIRED #IMPLIED>
 ]>
 
 <book author="Mario Vargas Llosa"/>
@@ -557,7 +558,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE inventors [
   <!ELEMENT inventors (inventor*)>
   <!ELEMENT inventor EMPTY>
-  <!ATTLIST inventor invention CDATA #REQUIRED>
+  <!ATTLIST inventor invention ID #REQUIRED>
   <!ATTLIST inventor name CDATA #REQUIRED>
 ]>
 
@@ -577,7 +578,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT thingsToDo (thing+)>
   <!ELEMENT thing (#PCDATA)>
   <!ATTLIST thing date CDATA #REQUIRED>
-  <!ATTLIST thing deadline CDATA #REQUIRED>
+  <!ATTLIST thing deadline DATE #REQUIRED>
 ]>
 
 <thingsToDo>
@@ -595,7 +596,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT resolucion EMPTY>
   <!ATTLIST resolucion name CDATA #REQUIRED>
   <!ATTLIST resolucion height CDATA #REQUIRED>
-  <!ATTLIST resolucion width CDATA #REQUIRED>
+  <!ATTLIST resolucion width #REQUIRED>
 ]>
 
 <resolutions>
@@ -613,7 +614,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT mortadeloAlbums (album*)>
   <!ELEMENT album EMPTY>
   <!ATTLIST album name CDATA #REQUIRED>
-  <!ATTLIST album date CDATA #REQUIRED>
+  <!ATTLIST album date ID #REQUIRED>
 ]>
 
 <mortadeloAlbums>
