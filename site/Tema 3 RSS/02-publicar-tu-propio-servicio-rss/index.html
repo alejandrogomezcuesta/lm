@@ -1,0 +1,1345 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="LM - 1º ASIR">
+      
+      
+      
+        <link rel="canonical" href="https://alejandrogomezcuesta.github.io/lm/Tema%203%20RSS/02-publicar-tu-propio-servicio-rss/">
+      
+      
+        <link rel="prev" href="../01-teoria-y-ejercicios/">
+      
+      
+        <link rel="next" href="../03-publicar-rss-en-github/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Publica tu propio servicio RSS con AWS - Lenguajes de Marcas</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#publica-tu-propio-servicio-rss-con-aws" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Lenguajes de Marcas" class="md-header__button md-logo" aria-label="Lenguajes de Marcas" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lenguajes de Marcas
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Publica tu propio servicio RSS con AWS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/alejandrogomezcuesta/lm" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alejandrogomezcuesta/lm
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lenguajes de Marcas" class="md-nav__button md-logo" aria-label="Lenguajes de Marcas" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Lenguajes de Marcas
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/alejandrogomezcuesta/lm" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    alejandrogomezcuesta/lm
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación de la asignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tema 1 XML
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tema 1 XML
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tema%201%20XML/01-teoria-y-ejercicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Información general
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tema%201%20XML/02-ejercicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejercicios XML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tema%201%20XML/03-ejercicios-soluciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejercicios XML (Soluciones)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tema 3 RSS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tema 3 RSS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-teoria-y-ejercicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Información general
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publica tu propio servicio RSS con AWS
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publica tu propio servicio RSS con AWS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-entra-en-aws-academy-y-abre-la-consola-de-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Entra en AWS Academy y abre la consola de AWS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prepara-el-servidor-ubuntu-en-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepara el servidor Ubuntu en AWS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Prepara el servidor Ubuntu en AWS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-crea-una-instancia-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Crea una instancia EC2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-conectate-la-direccion-publica-de-la-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Conéctate la dirección pública de la instancia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-conectate-por-ssh-e-instala-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Conéctate por SSH e instala Apache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-crea-el-fichero-rss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Crea el fichero RSS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sube-los-ficheros-al-servidor-por-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sube los ficheros al servidor por SSH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-valida-el-feed-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Valida el feed XML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-publica-tambien-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Publica también index.html
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-sigue-tu-propio-rss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Sigue tu propio RSS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-entrega-en-classroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Entrega en Classroom
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-publicar-rss-en-github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Publicar tu propio servicio RSS en github
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tema 4 DTD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tema 4 DTD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tema%204%20DTD/01-teoria-y-ejercicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DTD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tema%204%20DTD/02-ejercicios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ejercicios DTD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-entra-en-aws-academy-y-abre-la-consola-de-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Entra en AWS Academy y abre la consola de AWS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prepara-el-servidor-ubuntu-en-aws" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Prepara el servidor Ubuntu en AWS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Prepara el servidor Ubuntu en AWS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-crea-una-instancia-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Crea una instancia EC2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-conectate-la-direccion-publica-de-la-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Conéctate la dirección pública de la instancia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-conectate-por-ssh-e-instala-apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Conéctate por SSH e instala Apache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-crea-el-fichero-rss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Crea el fichero RSS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sube-los-ficheros-al-servidor-por-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sube los ficheros al servidor por SSH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-valida-el-feed-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Valida el feed XML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-publica-tambien-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Publica también index.html
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-sigue-tu-propio-rss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Sigue tu propio RSS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-entrega-en-classroom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Entrega en Classroom
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="publica-tu-propio-servicio-rss-con-aws">Publica tu propio servicio RSS con AWS<a class="headerlink" href="#publica-tu-propio-servicio-rss-con-aws" title="Permanent link">&para;</a></h1>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>En esta práctica crearás un feed RSS, lo publicarás en un servidor Ubuntu con Apache en AWS y lo seguirás desde un lector de RSS.</p>
+<blockquote>
+<p><strong>Importante:</strong> usaremos una instancia EC2 (una máquina virtual) y Apache. No crearemos un contenedor Docker. En esta práctica, subir los archivos "al servidor" significa copiarlos al directorio que Apache publica en la web.</p>
+</blockquote>
+<h2 id="objetivos">Objetivos<a class="headerlink" href="#objetivos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Crear una instancia Ubuntu accesible desde Internet y asignarle una dirección IP pública estática.</li>
+<li>Crear un feed RSS 2.0 con al menos cuatro noticias originales y publicarlo en Apache.</li>
+<li>Comprobar el feed con el validador oficial y suscribirse a él desde Feedly.</li>
+</ul>
+<h2 id="1-entra-en-aws-academy-y-abre-la-consola-de-aws">1. Entra en AWS Academy y abre la consola de AWS<a class="headerlink" href="#1-entra-en-aws-academy-y-abre-la-consola-de-aws" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Abre <a href="https://awsacademy.instructure.com/">AWS Academy</a> e inicia sesión con las credenciales que te haya proporcionado tu profesor.</li>
+<li>Entra en el curso de esta asignatura y abre el laboratorio de AWS, normalmente llamado <strong>AWS Academy Learner Lab</strong> o con un nombre similar.</li>
+<li>Pulsa <strong>Start Lab</strong> y espera a que el laboratorio aparezca como iniciado. Mientras se inicia, el indicador puede mostrar un estado de espera.</li>
+<li>Cuando el laboratorio esté activo, pulsa <strong>AWS</strong> para abrir la consola de AWS en una nueva pestaña.</li>
+<li>Comprueba que la consola se ha abierto con la cuenta temporal del laboratorio antes de continuar. Trabaja solo con los recursos necesarios para esta práctica y detén el laboratorio cuando termines.</li>
+</ol>
+<p><img alt="Entrada a AWS Console" src="../image-1.png" /></p>
+<h2 id="2-prepara-el-servidor-ubuntu-en-aws">2. Prepara el servidor Ubuntu en AWS<a class="headerlink" href="#2-prepara-el-servidor-ubuntu-en-aws" title="Permanent link">&para;</a></h2>
+<h3 id="21-crea-una-instancia-ec2">2.1. Crea una instancia EC2<a class="headerlink" href="#21-crea-una-instancia-ec2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Entra en la consola de AWS y abre <strong>EC2</strong>.</li>
+<li>Pulsa <strong>Lanzar la instancia</strong> y asigna un nombre, por ejemplo, <code>servidor-rss</code>.</li>
+<li>En <strong>Imágenes de aplicaciones y sistemas operativos</strong>, selecciona una imagen oficial <strong>Ubuntu</strong> (Ubuntu Server 26.04 LTS).</li>
+<li>Elige un tipo de instancia pequeño permitido para tu cuenta del centro. Nosotros usaremos <strong>t3.micro</strong>.</li>
+<li><strong>Claves para conectarte por SSH</strong></li>
+<li>Si ya las has creado, intenta reutilizar las que ya tienes seleccionándolas del desplegable. Esto implica que tienes que recuperar el fichero <code>.pem</code> que ya creaste.</li>
+<li>Si nunca has hecho este paso o has perdido el fichero <code>.pem</code>, crea un par de claves nuevas. Solo tienes que hacer clic en el menú y establecer un nombre. Para esta práctica usamos <code>asir-rss.pem</code>. Descarga el fichero <code>.pem</code>, guárdalo en un lugar seguro y no lo compartas ni lo subas a Classroom.</li>
+<li>En la configuración de red, crea o selecciona un grupo de seguridad con estas reglas de entrada:</li>
+<li><strong>SSH</strong>, puerto <code>22</code>, desde cualquier lugart (<code>0.0.0.0/0</code>).</li>
+<li><strong>Permitir el tráfico HTTP desde Internet</strong>, puerto <code>80</code>.</li>
+<li>Ya podemos hacer clic sobre el botón <strong>Lanzar instancia</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Importante</strong>. Guarda ese fichero <code>.pem</code> en algún sitio donde lo encuentres porque no lo podrás volver a descargar.
+No está todo perdido: siempre puedes crear un par de claves nuevas.</p>
+</blockquote>
+<p><img alt="Instancia creada y funcionando" src="../image-2.png" /></p>
+<h3 id="22-conectate-la-direccion-publica-de-la-instancia">2.2. Conéctate la dirección pública de la instancia<a class="headerlink" href="#22-conectate-la-direccion-publica-de-la-instancia" title="Permanent link">&para;</a></h3>
+<p>En este momento ya puedes conectarte a la instancia usando la dirección IPv4 pública o el DNS público que aparecen en sus detalles. Estas direcciones son automáticas y pueden cambiar si detienes y vuelves a iniciar la instancia, por lo que no es una dirección fija.</p>
+<h3 id="23-conectate-por-ssh-e-instala-apache">2.3. Conéctate por SSH e instala Apache<a class="headerlink" href="#23-conectate-por-ssh-e-instala-apache" title="Permanent link">&para;</a></h3>
+<p>Abre bash en tu ordenador, desde la carpeta donde guardaste el fichero <code>.pem</code>. Sustituye el nombre de la clave y la IP por los tuyos. La cuenta predeterminada de Ubuntu en la imagen de AWS es <code>ubuntu</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Abre una sesión segura en la instancia usando la clave privada y la IP pública estática.</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ssh<span class="w"> </span>-i<span class="w"> </span>.<span class="se">\a</span>sir-rss.pem<span class="w"> </span>ubuntu@IP_PUBLICA
+</span></code></pre></div>
+<p>Date cuenta que el modificador <code>-i</code> sirve para indicar el fichero de tu clave. Después se pone el nombre del usuario, que es <code>ubuntu</code>, una arroba, y finalmente la ip o el DNS público que AWS nos da de la instancia.</p>
+<p>Si tras la ejecución de la orden anterior aparece una pregunta sobre la autenticidad del servidor, escribe <code>yes</code> solo si la IP corresponde a tu instancia. Ya dentro de Ubuntu, ejecuta:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Actualiza la lista de paquetes disponibles en Ubuntu.</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Instala el servidor web Apache sin pedir confirmación interactiva.</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apache2<span class="w"> </span>-y
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Configura Apache para iniciarse automáticamente con el sistema operativo.</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>apache2
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Muestra el estado de Apache para comprobar que está activo.</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>apache2
+</span></code></pre></div>
+<p>Para comprobar que Apache funciona, abre el navegador y escribe <code>http://IP_PUBLICA</code>, sustituyendo <code>IP_PUBLICA</code> por la dirección IPv4 pública de tu instancia.</p>
+<p>Si aparece la página predeterminada de Apache, el servidor responde. Si no carga, revisa que Apache esté activo y que el grupo de seguridad permita tráfico HTTP por el puerto 80.</p>
+<h2 id="3-crea-el-fichero-rss">3. Crea el fichero RSS<a class="headerlink" href="#3-crea-el-fichero-rss" title="Permanent link">&para;</a></h2>
+<p>Un feed RSS es un documento XML que describe una fuente y sus noticias. En clase seguimos el <a href="https://www.eniun.com/tutorial-rss/">tutorial de RSS de Eniun</a>; consúltalo para repasar los elementos y el formato.</p>
+<p>Puedes escoger, por ejemplo, tecnología y ciberseguridad, videojuegos, deportes, música, medioambiente, ciencia, viajes o noticias de tu centro. Redacta <strong>al menos cuatro noticias completas</strong>: cada una debe tener un título claro y una descripción comprensible, con varios datos o ideas y buena ortografía. Puedes usar una IA u otra herramienta como apoyo, pero revisa y adapta el resultado: el feed debe ser coherente y el contenido no debe copiar artículos ajenos.</p>
+<p>Guarda el fichero como <code>feed.xml</code>. Puedes ayudarte para crearlo con Visual Studio Code.</p>
+<h2 id="4-sube-los-ficheros-al-servidor-por-ssh">4. Sube los ficheros al servidor por SSH<a class="headerlink" href="#4-sube-los-ficheros-al-servidor-por-ssh" title="Permanent link">&para;</a></h2>
+<p>Abre la terminal en la carpeta dondes esté el fichero <code>feed.xml</code>. La siguiente orden copia el fichero a la carpeta personal del usuario <code>ubuntu</code> de la instancia de AWS:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Copia el fichero feed.xml a la carpeta personal de Ubuntu.</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>scp<span class="w"> </span>-i<span class="w"> </span>asir-rss.pem<span class="w"> </span>feed.xml<span class="w"> </span>ubuntu@IP_PUBLICA:~
+</span></code></pre></div>
+<p>Ahora en el servidor ubuntu donde se está ejecutando Apache, conéctate con SSH (si no estabas ya conectado):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Nos conectamos al contenedor de ubuntu</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ssh<span class="w"> </span>-i<span class="w"> </span>asir-rss.pem<span class="w"> </span>ubuntu@IP_PUBLICA
+</span></code></pre></div>
+<p>Dentro del contenedor, cambiamos el usuario y grupo del fichero así como sus permisos. Y movemos el fichero <code>feed.xml</code> a la carpeta <code>/var/www/html</code> para que Apache pueda trabajar con él.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Mueve el fichero `feed.xml` a la carpeta donde de Apache</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>mv<span class="w"> </span>~/feed.xml<span class="w"> </span>/var/www/html/feed.xml
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Cambia el usuario dueño y el grupo</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>sudo<span class="w"> </span>chown<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/html/feed.xml
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Cambia los permisos</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>/var/www/html/feed.xml
+</span></code></pre></div>
+<p>Comprueba en el navegador que <code>http://IP_PUBLICA/</code> sigue mostrando tu página de Apache recién instalado en Ubuntu y que <code>http://IP_PUBLICA/feed.xml</code> abre el feed. Si ya existía un <code>index.html</code> de Apache, el segundo comando lo reemplaza en la instancia.</p>
+<h2 id="5-valida-el-feed-xml">5. Valida el feed XML<a class="headerlink" href="#5-valida-el-feed-xml" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Abre el <a href="https://validator.w3.org/feed/">W3C Feed Validation Service</a>.</li>
+<li>Introduce la dirección pública completa de tu feed: <code>http://IP_PUBLICA/feed.xml</code>.</li>
+<li>Pulsa <strong>Check</strong>. El validador debe poder acceder al archivo y no mostrar errores de formato.</li>
+<li>Si hay errores, lee el mensaje y corrige <code>feed.xml</code> en tu ordenador. Vuelve a subirlo con el comando <code>scp</code> y el comando SSH de instalación del paso 4, y valida la dirección de nuevo.</li>
+</ol>
+<p>Si el validador no puede descargar el feed, prueba primero la dirección en una ventana privada del navegador y revisa que la instancia siga encendida, Apache esté activo y el puerto 80 esté abierto. No subas una captura de un feed que todavía tenga errores sin corregir.</p>
+<h2 id="6-publica-tambien-indexhtml">6. Publica también <code>index.html</code><a class="headerlink" href="#6-publica-tambien-indexhtml" title="Permanent link">&para;</a></h2>
+<p>Copia y pega el siguiente código a un fichero llamado <code>index.html</code>. Es una página sencilla que enlaza el feed desde el <code>&lt;head&gt;</code> mediante la línea 9. <strong>Completa correctamente esa línea</strong>. Además, <strong>incluye tu nombre</strong> en la línea 18.</p>
+<div class="language-html highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">&lt;!doctype html&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"es"</span><span class="p">&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span> <span class="p">/&gt;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width, initial-scale=1"</span> <span class="p">/&gt;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Mi servicio RSS<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>  <span class="cm">&lt;!-- Completa esta línea correctamente --&gt;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="hll">  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"alternate"</span> <span class="na">title</span><span class="o">=</span><span class="s">"RSS"</span> <span class="na">href</span><span class="o">=</span><span class="s">"AQUÍ FALTA ALGO"</span> <span class="na">type</span><span class="o">=</span><span class="s">"application/rss+xml"</span> <span class="p">/&gt;</span>
+</span></span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Mi servicio RSS<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Bienvenido a mi canal de noticias. Suscríbete al feed para recibir las novedades.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a>  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"feed.xml"</span><span class="p">&gt;</span>Ver el feed RSS<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a>  <span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a>  <span class="cm">&lt;!-- Completa aquí con tu nombre. --&gt;</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="hll">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Soy: <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>TU NOMBRE AQUÍ<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+<p>El atributo <code>href=""</code> indica que dónde está el feed respecto de esta página <code>index.html</code>. Por eso, en el paso 4 ambos se copian a <code>/var/www/html/</code>. Si cambias el nombre o la ubicación del feed, actualiza también <code>href</code> para que coincida.</p>
+<p>Como hicimos con el fichero <code>feed.xml</code>, ahora tenemos que subir este otro fichero <code>index.html</code> y configurar su usuario, grupo y permisos.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Nos conectamos al contenedor de ubuntu</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ssh<span class="w"> </span>-i<span class="w"> </span>asir-rss.pem<span class="w"> </span>ubuntu@IP_PUBLICA
+</span></code></pre></div>
+<p>Dentro del contenedor movemos el fichero <code>index.xml</code> y lo configuramos para que Apache pueda trabajar con él tal y como hicimos con el fichero <code>feed.xml</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Mueve el fichero `index.html` a la carpeta donde de Apache</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>sudo<span class="w"> </span>mv<span class="w"> </span>~/index.html<span class="w"> </span>/var/www/html/index.html
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Cambia el usuario dueño y el grupo</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>sudo<span class="w"> </span>chown<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/html/index.html
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Cambia los permisos</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span>/var/www/html/index.html
+</span></code></pre></div>
+<h2 id="7-sigue-tu-propio-rss">7. Sigue tu propio RSS<a class="headerlink" href="#7-sigue-tu-propio-rss" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Entra en un cliente RSS.</li>
+<li>Usa <strong>Añadir contenido</strong> o la opción equivalente para añadir una fuente de tu cliente.</li>
+<li>Pega la dirección de tu sitio web <code>http://IP_PUBLICA</code> y selecciona el resultado que corresponde a tu canal.</li>
+<li>Fíjate que no ponemos el fichero <code>feed.xml</code> directamente, ya que el cliente rss lo encuentra gracias a la etiqueta <code>&lt;link&gt;</code> que está puesta en la sección <code>&lt;head&gt;</code> del fichero <code>index.html</code>.</li>
+<li>Pulsa <strong>Follow</strong> o <strong>Seguir</strong>.</li>
+<li>Comprueba que aparecen tus cuatro noticias. Puedes actualizar el feed después y volver a cargarlo para observar cómo llegan las novedades.</li>
+</ol>
+<h2 id="8-entrega-en-classroom">8. Entrega en Classroom<a class="headerlink" href="#8-entrega-en-classroom" title="Permanent link">&para;</a></h2>
+<p>Envía estos tres elementos por Classroom al profesor:</p>
+<ul>
+<li>Una captura de pantalla del fichero <code>feed.xml</code> que has publicado visualizado con tu navegador a través del contenedor AWS publicado en internet.</li>
+<li>Una captura del fichero <code>index.html</code> que has publicado visualizado con tu navegador a través del contenedor AWS publicado en internet.</li>
+<li>Una captura de pantalla de tu cliente RSS donde se vea tu contenido publicado.</li>
+</ul>
+<p>Antes de entregar, confirma que el feed se abre desde Internet, supera la validación XML y aparece en Feedly. <strong>No entregues ni compartas el fichero <code>.pem</code></strong>, porque es una clave privada de acceso al servidor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../01-teoria-y-ejercicios/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Información general">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Información general
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03-publicar-rss-en-github/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Publicar tu propio servicio RSS en github">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Publicar tu propio servicio RSS en github
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer", "navigation.instant", "navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "content.code.select", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs" type="module"></script>
+      
+    
+  </body>
+</html>
