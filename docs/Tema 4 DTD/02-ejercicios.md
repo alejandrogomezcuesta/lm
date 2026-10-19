@@ -696,8 +696,8 @@ Crea una DTD para validar el archivo siguiente.
 
 Crea un XML que contenga la información de esta tabla teniendo en cuenta dos variaciones:
 
-1) Usa cada columna como un nodo
-2) Usa *continente* como atributo de *pais*
+- Usa cada columna como un nodo
+- Usa *continente* como atributo de *pais*
 
 Crea el DTD de cada una de las dos variaciones
 
@@ -711,8 +711,8 @@ Crea el DTD de cada una de las dos variaciones
 
 Crea un XML que contenga la información de esta tabla teniendo en cuenta dos variaciones:
 
-1) Usa cada columna como una etiqueta (xml-doc: Exercise8-a.xml, dtd-doc: Exercise8-a.dtd)
-2) Crea un nuevo documento XML donde una de esas columnas sea un atributo de otra (xml-doc: Exercise8-b.xml, dtd-doc: Exercise8-b.dtd)
+- Usa cada columna como una etiqueta
+- Crea un nuevo documento XML donde una de esas columnas sea un atributo de otra
 
 Crea el DTD de cada una de las dos variaciones
 
