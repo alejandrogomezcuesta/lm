@@ -1,9 +1,5 @@
 # Ejercicios DTD
 
-## ¿Dónde están los ficheros que mencionan los ejercicios?
-
-[https://drive.google.com/drive/folders/1d8YP1CA-zS67-Y-2rMl62KI4zDPG6sKs?usp=drive_link](https://drive.google.com/drive/folders/1d8YP1CA-zS67-Y-2rMl62KI4zDPG6sKs?usp=drive_link)
-
 ## Elementos sin atributos
 
 Los siguientes documentos no son válidos porque contienen uno o dos errores (los errores no están en la DTD interna: están en el XML). Corrige los errores y comprueba con Visual Studio Code y la extensión XML de Red Hat que ya son documentos válidos.
