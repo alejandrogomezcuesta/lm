@@ -186,7 +186,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE favourites [
   <!ELEMENT favourites (bookmark)>
-  <!ELEMENT bookmark (name, uri, uri)>
+  <!ELEMENT bookmark (name, uri+)>
   <!ELEMENT name (#PCDATA)>
   <!ELEMENT uri (#PCDATA)>
 ]>
@@ -198,7 +198,6 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   </bookmark>
   <bookmark>
     <name>Web Hypertext Application Technology Working Group (WHATWG)</name>
-    <uri>http://www.whatwg.org/</uri>
   </bookmark>
 </favourites>
 ```
@@ -244,6 +243,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <airports>
   <airport>
     <name>Berlín Schönefeld (SFX)</name>
+    <closed>Están de obras</closed>
   </airport>
   <airport>
     <name>Berlín Tempelhof (THF)</name>
@@ -258,7 +258,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flights [
   <!ELEMENT flights (flight*)>
-  <!ELEMENT flight (source, target, source)>
+  <!ELEMENT flight (source, target)>
   <!ELEMENT source (#PCDATA)>
   <!ELEMENT target (#PCDATA)>
 ]>
@@ -270,6 +270,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   </flight>
   <flight>
     <source>París Charles de Gaulle (CDG)</source>
+    <step>Barcelona (BCL)</step>
     <target>Berlín Schönefeld (SFX)</target>
   </flight>
 </flights>
@@ -308,8 +309,6 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 ```
 
 ### Ejercicio 2-6
-
-
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -453,7 +452,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
   <!ATTLIST movie genre CDATA #IMPLIED>
 ]>
 
-<movie title="Stagecoach" genre="western">Hola</movie>
+<movie title="Stagecoach" genre="western" year="2020">Hola</movie>
 ```
 
 ### Ejercicio 3-3
