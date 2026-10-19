@@ -66,14 +66,20 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE animals [
-  <!ELEMENT animals (animal*)>
-  <!ELEMENT animal (#PCDATA)>
+<!DOCTYPE animales [
+  <!ELEMENT animales (animal*)>
+  <!ELEMENT animal (nombre, nombre_cientifico)>
+  <!ELEMENT nombre (#PCDATA)>
+  <!ELEMENT nombre_cientifico (#PCDATA)>
 ]>
 
-<animals>
+<animales>
   <animal>perro</animal>
-  <mammal>gato</mammal>
+  <mamifero>gato</mamifero>
+  <animal>
+    <nombre>Conejo</nombre>
+    <nombre_cientifico>Roger Rabbit</nombre_cientifico>
+  </animal>
 </animals>
 ```
 
