@@ -626,38 +626,64 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ## Creación de DTDs
 
-### Ejercicio 5-1 (equivale al ejercicio 6)
+### Ejercicio 5-1
 
-Queremos definir un lenguaje de marcado para representar los resultados de una liga de fútbol. La información que queremos guardar para cada partido es:
+En este ejercicio vamos a definir tres ficheros XML, cada uno con un DTD diferente. Todos los ficheros van a contener la misma información.
+
+Lo que queremos es representar los resultados de una liga de fútbol. La información que queremos guardar para cada partido es:
 
 - nombre del equipo local
 - nombre del equipo visitante
 - goles marcados por el equipo local
 - goles marcados por el equipo visitante
 
-Escribe tres documentos que incluyan los siguientes resultados:
+En concreto, queremos representar la información de estos tres partidos.
 
 - Nottingham Preesa: 0 - Inter de Mitente: 1
 - Vodka Juniors: 3 - Sparta da Risa: 3
 - Water of Munich: 4 - Esteaua is from the tap: 2
 
-Cada documento incluirá una DTD distinta para representar ese lenguaje de marcado:
+Cada uno de los tres DTDs que vamos a definir tiene unas restricciones diferentes y son las siguientes:
 
-1. DTD sin atributos, solo etiquetas (archivo: Exercise5-1.xml)
-2. DTD con los goles como atributos (archivo: Exercise5-2.xml)
-3. DTD en la que toda la información se almacena como atributos (archivo: Exercise5-3.xml)
+1. DTD sin atributos, solo etiquetas
+2. DTD con los goles como atributos
+3. DTD en la que toda la información se almacena como atributos y los nodos, por lo tanto, son vacíos.
 
-### Ejercicio 5-2 (equivale al ejercicio 6)
+### Ejercicio 5-2
 
-Usa el archivo “beatles.xml”. Crea una DTD para validar el archivo anterior con el nombre “Exercise6.dtd”.
+Crea una DTD para validar el archivo siguiente.
 
-Guarda una copia de “beatles.xml” con la modificación para incluir la referencia a la DTD y llámala “Exercise6.xml”.
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beatles>
+	<beatle link="http://www.paulmccartney.com">
+		<name>
+			<firstname>Paul</firstname>
+			<lastname>McCartney</lastname>
+		</name>
+	</beatle>
+	<beatle>
+		<name>
+			<firstname>John</firstname>
+			<lastname>Lennon</lastname>
+		</name>
+	</beatle>
+	<beatle link="http://www.georgeharrison.com">
+		<name>
+			<firstname>George</firstname>
+			<lastname>Harrison</lastname>
+		</name>
+	</beatle>
+	<beatle>
+		<name>
+			<firstname>Ringo</firstname>
+			<lastname>Starr</lastname>
+		</name>
+	</beatle>
+</beatles>
+```
 
-### Ejercicio 5-3 (equivale al ejercicio 7)
-
-Crea una DTD para validar los documentos XML que creaste para el ejercicio 4 de la tarea LM_UD1_T1.
-
-Para cada punto, haz una copia del archivo original modificando su contenido para incluir la referencia a la DTD. A continuación se indica el nombre que debe tener el documento DTD.
+### Ejercicio 5-3
 
 | Nombre | País | Continente |
 | :---- | :---- | :---- |
@@ -665,14 +691,14 @@ Para cada punto, haz una copia del archivo original modificando su contenido par
 | Lisboa | Portugal | Europa |
 | Tánger | Egipto | África |
 
-1) Usa cada columna como una etiqueta (xml-doc: Exercise7-a.xml, dtd-doc: Exercise7-a.dtd)
-2) Usa *continent* como atributo de *country* (xml-doc: Exercise7-b.xml, dtd-doc: Exercise7-b.dtd)
+Crea un XML que contenga la información de esta tabla teniendo en cuenta dos variaciones:
 
-### Ejercicio 5-4 (equivale al ejercicio 8)
+1) Usa cada columna como un nodo
+2) Usa *continente* como atributo de *pais*
 
-Crea una DTD para validar los documentos XML que creaste para el ejercicio 5 de la tarea LM_UD1_T1.
+Crea el DTD de cada una de las dos variaciones
 
-Para cada punto, haz una copia del archivo original modificando su contenido para incluir la referencia a la DTD.
+### Ejercicio 5-4
 
 | Descripción del hecho histórico | Día | Mes | Año |
 | :---- | :---- | :---- | :---- |
@@ -680,25 +706,25 @@ Para cada punto, haz una copia del archivo original modificando su contenido par
 | Google se funda | 4 | 9 | 1998 |
 | Facebook se funda | 4 | 2 | 2004 |
 
+Crea un XML que contenga la información de esta tabla teniendo en cuenta dos variaciones:
+
 1) Usa cada columna como una etiqueta (xml-doc: Exercise8-a.xml, dtd-doc: Exercise8-a.dtd)
 2) Crea un nuevo documento XML donde una de esas columnas sea un atributo de otra (xml-doc: Exercise8-b.xml, dtd-doc: Exercise8-b.dtd)
 
-### Ejercicio 5-5 (equivale al ejercicio 9)
+Crea el DTD de cada una de las dos variaciones
 
-Crea una DTD para validar el documento XML que creaste para el ejercicio 6 de la tarea LM_UD1_T1 y llámala “Exercise9.dtd”.
+### Ejercicio 5-5
 
-Sin usar atributos, crea un documento XML que describa una lista de marcadores de páginas web. La información de cada página es el nombre, una breve descripción y su URL. Los datos de los marcadores son los que aparecen en la siguiente tabla.
+| Institución         | Nombre                             | Página web                 |
+| ---                 | ---                                | ---                        |
+| IES Antonio Machado | Instituto Antonio Machado          | https://www.iesamachado.es |
+| Wikipedia           | La enciclopedia libre.             | http://www.wikipedia.org/  |
+| W3                  | El consorcio de la World Wide Web. | http://www.w3.org/         |
 
-| IES Antonio Machado
-Instituto Antonio Machado.
-[https://www.iesamachado.es/](https://www.iesamachado.es/) |
-| :---- |
-| **Wikipedia**
-La enciclopedia libre.
-[http://www.wikipedia.org/](http://www.wikipedia.org/) |
-| **W3C**
-El consorcio de la World Wide Web.
-[http://www.w3.org/](http://www.w3.org/) |
+Teniendo en cuenta la información de la tabla crea un DTD y un fichero XML que respete lo siguiente:
 
-No olvides incluir una copia modificada del archivo original “Exercise9.xml” con la referencia a su documento DTD.
+- Sin usar atributos, crea un documento XML y un DTD que describa la información de la tabla.
+- Únicamente con nodos de tipo vacío, representa la información anterior utilizando atributos.
+- Suponiendo que *página web* es un atributo del nodo *institución*, crea el XML y el DTD de la información anterior.
+
 
