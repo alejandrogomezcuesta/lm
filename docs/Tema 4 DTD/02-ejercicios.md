@@ -4,7 +4,7 @@
 
 [https://drive.google.com/drive/folders/1d8YP1CA-zS67-Y-2rMl62KI4zDPG6sKs?usp=drive_link](https://drive.google.com/drive/folders/1d8YP1CA-zS67-Y-2rMl62KI4zDPG6sKs?usp=drive_link)
 
-## Elementos sin atributos y error en el XML, no en el DTD
+## Elementos sin atributos
 
 Los siguientes documentos no son válidos porque contienen uno o dos errores (los errores no están en la DTD interna: están en el XML). Corrige los errores y comprueba con Visual Studio Code y la extensión XML de Red Hat que ya son documentos válidos.
 
@@ -41,13 +41,13 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE colors [
-  <!ELEMENT colors (color)>
+  <!ELEMENT colors (color*)>
   <!ELEMENT color (#PCDATA)>
 ]>
 
 <colors>
   <color>dark blue</color>
-  <color>yellow</color>
+  <size>large</size>
 </colors>
 ```
 
@@ -57,15 +57,12 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flowers [
   <!ELEMENT flowers (flower+)>
-  <!ELEMENT flower (name+)>
-  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT flower (#PCDATA)>
 ]>
 
 <flowers>
-  <flower>
-    <name>rosa</name>
-  </flower>
-  <flower>tulipán</flower>
+  <flower>rosa</flower>
+  <petal>tulipán</petal>
 </flowers>
 ```
 
@@ -73,23 +70,15 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE animales [
-  <!ELEMENT animales (animal*)>
-  <!ELEMENT animal (nombre, nombre_cientifico)>
-  <!ELEMENT nombre (#PCDATA)>
-  <!ELEMENT nombre_cientifico (#PCDATA)>
+<!DOCTYPE animals [
+  <!ELEMENT animals (animal*)>
+  <!ELEMENT animal (#PCDATA)>
 ]>
 
-<animales>
+<animals>
   <animal>perro</animal>
-  <animal>
-    <nombre>Gato</nombre>
-    <nombre_cientifico>Felis catus</nombre>
-  </animal>
-  <animal>
-    <nombre>Conejo</nombre>
-  </animal>
-</animales>
+  <mammal>gato</mammal>
+</animals>
 ```
 
 ### Ejercicio 1-6
@@ -105,11 +94,12 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 <writers>
   <writer>
-    <name>Mario Vargas Llosa</name>
     <birth>28 de marzo de 1936</birth>
+    <name>Mario Vargas Llosa</name>
   </writer>
   <writer>
     <name>Milan Kundera</name>
+    <birth>1 de abril de 1929</birth>
   </writer>
 </writers>
 ```
@@ -155,7 +145,8 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 <agenda>
   <contact>
     <name>Ayuntamiento</name>
-    <landPhone>010</landPhone>
+    <mobilePhone>010</mobilePhone>
+    <name>Ayuntamiento 2</name>
   </contact>
   <contact>
     <name>Emergencias</name>
@@ -189,7 +180,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 </solarSystem>
 ```
 
-## Elementos sin atributos y error en el DTD, no en el XML
+## Elementos sin atributos (DTD interna)
 
 Los siguientes documentos no son válidos porque contienen errores en la DTD interna. Corrige los errores y comprueba con XML Copy Editor que ya son documentos válidos. En la mayoría de los casos hay varias maneras de corregir la DTD; intenta elegir la más sencilla.
 
@@ -199,7 +190,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE favourites [
   <!ELEMENT favourites (bookmark)>
-  <!ELEMENT bookmark (name, uri)>
+  <!ELEMENT bookmark (name, uri, uri)>
   <!ELEMENT name (#PCDATA)>
   <!ELEMENT uri (#PCDATA)>
 ]>
@@ -221,8 +212,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE anniversaires [
-  <!ELEMENT anniversaires (anniversaire)>
-  <!ELEMENT anniversaire (date, fact)>
+  <!ELEMENT anniversaires (anniversaire+)>
+  <!ELEMENT anniversaire (date, fact, fact)>
   <!ELEMENT date (#PCDATA)>
   <!ELEMENT fact (#PCDATA)>
 ]>
@@ -248,10 +239,10 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE airports [
-  <!ELEMENT airports (airport)>
+  <!ELEMENT airports (airport*)>
   <!ELEMENT airport (name, closed?)>
   <!ELEMENT name (#PCDATA)>
-  <!ELEMENT closed EMPTY>
+  <!ELEMENT closed (#PCDATA)>
 ]>
 
 <airports>
@@ -270,8 +261,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flights [
-  <!ELEMENT flights (flight)>
-  <!ELEMENT flight (target, source)>
+  <!ELEMENT flights (flight*)>
+  <!ELEMENT flight (source, target, source)>
   <!ELEMENT source (#PCDATA)>
   <!ELEMENT target (#PCDATA)>
 ]>
@@ -295,7 +286,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE spanishKings [
   <!ELEMENT spanishKings (king*, queen*)>
   <!ELEMENT king (name, father, mother)>
-  <!ELEMENT queen (name, father, mother)>
+  <!ELEMENT queen (name, father, mother, father)>
   <!ELEMENT name (#PCDATA)>
   <!ELEMENT father (#PCDATA)>
   <!ELEMENT mother (#PCDATA)>
@@ -322,13 +313,15 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-6
 
+
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE countries [
   <!ELEMENT countries (country*)>
   <!ELEMENT country (name, europeanUnion?, nato?)>
   <!ELEMENT name (#PCDATA)>
-  <!ELEMENT europeanUnion (name)>
+  <!ELEMENT europeanUnion EMPTY>
   <!ELEMENT nato (#PCDATA)>
 ]>
 
@@ -357,7 +350,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT colors (color*)>
   <!ELEMENT color (nameSvg, code)>
   <!ELEMENT nameSvg (#PCDATA)>
-  <!ELEMENT code (rgb | cmyk)>
+  <!ELEMENT code (rgb | cmyk | rgb)>
   <!ELEMENT rgb (#PCDATA)>
   <!ELEMENT cmyk (#PCDATA)>
 ]>
@@ -370,9 +363,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
     </code>
   </color>
   <color>
-    <nameSvg>Rojo</nameSvg>
+    <nameSvg>Púrpura</nameSvg>
     <code>
-      <rgb>#FF0000</rgb>
       <cmyk>#00FF007F</cmyk>
     </code>
   </color>
@@ -384,8 +376,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE accounting [
-  <!ELEMENT accounting (note)>
-  <!ELEMENT note ((incoming | expense)?, date, amount, concept)>
+  <!ELEMENT accounting (note*)>
+  <!ELEMENT note ((incoming | expense)?, date, amount, concept, amount)>
   <!ELEMENT incoming EMPTY>
   <!ELEMENT expense EMPTY>
   <!ELEMENT date (#PCDATA)>
@@ -419,7 +411,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
   <!ELEMENT from (#PCDATA)>
   <!ELEMENT for (#PCDATA)>
   <!ELEMENT hour (#PCDATA)>
-  <!ELEMENT text (#PCDATA)>
+  <!ELEMENT text (#PCDATA | strong | #PCDATA)*>
   <!ELEMENT strong (#PCDATA)>
 ]>
 
@@ -439,9 +431,9 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 </messages>
 ```
 
-## Elementos con atributos y error en el XML, no en el DTD
+## Elementos con atributos
 
-Los siguientes documentos no son válidos porque contienen uno o dos errores en el XML (no en la DTD interna). Corrígelos y comprueba que ya son documentos válidos.
+Los siguientes documentos no son válidos porque contienen uno o dos errores (los errores no están en la DTD interna). Corrige los errores y comprueba con XML Copy Editor que ya son documentos válidos.
 
 ### Ejercicio 3-1
 
@@ -449,10 +441,10 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores en 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE person [
   <!ELEMENT person EMPTY>
-  <!ATTLIST person name CDATA #REQUIRED>
+  <!ATTLIST person name CDATA #IMPLIED>
 ]>
 
-<person name="Manolo">Manolo</person>
+<person dni="03141592E"/>
 ```
 
 ### Ejercicio 3-2
@@ -462,10 +454,10 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores en 
 <!DOCTYPE movie [
   <!ELEMENT movie EMPTY>
   <!ATTLIST movie title CDATA #IMPLIED>
-  <!ATTLIST movie genre CDATA #REQUIRED>
+  <!ATTLIST movie genre CDATA #IMPLIED>
 ]>
 
-<movie year="2025"/>
+<movie title="Stagecoach" genre="western">Hola</movie>
 ```
 
 ### Ejercicio 3-3
@@ -481,7 +473,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores en 
 
 <paintings>
   <painting title="Adan_y_Eva" author="Alberto Durero"/>
-  <painting title="Cain_y_Abel"/>
+  <painting title="Adan_y_Eva" author="Lucas Cranach, el Viejo"/>
 </paintings>
 ```
 
@@ -497,8 +489,8 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores en 
 ]>
 
 <shoppingList>
-  <item name="milk" amount="12 litros"/>
-  <item name="bread"/>
+  <item name="milk"/>
+  <item name="bread" amount="3 piezas"/>
 </shoppingList>
 ```
 
@@ -515,7 +507,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores en 
 
 <football>
   <player name="Alfredo Di Stéfano" code="p1"/>
-  <player code="p2"/>
+  <player name="Edson Arantes do Nascimento, Pelé" code="p1"/>
   <player name="Diego Armando Maradona" code="p3"/>
   <player name="Johan Cruyff" code="p4"/>
 </football>
@@ -540,12 +532,12 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores en 
   <player name="Edison Arantes do Nascimento" code="ean"/>
   <player name="Diego Armando Maradona" code="dam"/>
   <player name="Johan Cruyff" code="jc"/>
-  <team players="dam"/>
+  <team name="Società Sportiva Calcio Napoli" players="dam p5"/>
   <team name="Fútbol Club Barcelona" players="jc dam"/>
 </football>
 ```
 
-## Elementos con atributos (Error en el DTD y no en el XML)
+## Elementos con atributos (DTD interna)
 
 Los siguientes documentos no son válidos porque contienen errores en la DTD interna. Corrige los errores y comprueba con XML Copy Editor que ya son documentos válidos. Hay varias formas de corregir la DTD; elige la más simple.
 
@@ -555,7 +547,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book [
   <!ELEMENT book EMPTY>
-  <!ATTLIST book author NMTOKEN #REQUIRED>
+  <!ATTLIST book author CDATA #REQUIRED #IMPLIED>
 ]>
 
 <book author="Mario Vargas Llosa"/>
@@ -568,7 +560,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE inventors [
   <!ELEMENT inventors (inventor*)>
   <!ELEMENT inventor EMPTY>
-  <!ATTLIST inventor invention NMTOKEN #REQUIRED>
+  <!ATTLIST inventor invention ID #REQUIRED>
   <!ATTLIST inventor name CDATA #REQUIRED>
 ]>
 
@@ -587,8 +579,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE thingsToDo [
   <!ELEMENT thingsToDo (thing+)>
   <!ELEMENT thing (#PCDATA)>
-  <!ATTLIST thing date NMTOKEN #REQUIRED>
-  <!ATTLIST thing deadline CDATA #REQUIRED>
+  <!ATTLIST thing date CDATA #REQUIRED>
+  <!ATTLIST thing deadline DATE #REQUIRED>
 ]>
 
 <thingsToDo>
@@ -604,9 +596,9 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE resolutions [
   <!ELEMENT resolutions (resolucion+)>
   <!ELEMENT resolucion EMPTY>
-  <!ATTLIST resolucion name NMTOKEN #REQUIRED>
+  <!ATTLIST resolucion name CDATA #REQUIRED>
   <!ATTLIST resolucion height CDATA #REQUIRED>
-  <!ATTLIST resolucion width CDATA #REQUIRED>
+  <!ATTLIST resolucion width #REQUIRED>
 ]>
 
 <resolutions>
@@ -623,8 +615,8 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 <!DOCTYPE mortadeloAlbums [
   <!ELEMENT mortadeloAlbums (album*)>
   <!ELEMENT album EMPTY>
-  <!ATTLIST album name NMTOKEN #REQUIRED>
-  <!ATTLIST album date CDATA #REQUIRED>
+  <!ATTLIST album name CDATA #REQUIRED>
+  <!ATTLIST album date ID #REQUIRED>
 ]>
 
 <mortadeloAlbums>
@@ -637,79 +629,53 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ## Creación de DTDs
 
-### Ejercicio 5-1
+### Ejercicio 5-1 (equivale al ejercicio 6)
 
-En este ejercicio vamos a definir tres ficheros XML, cada uno con un DTD diferente. Todos los ficheros van a contener la misma información.
-
-Lo que queremos es representar los resultados de una liga de fútbol. La información que queremos guardar para cada partido es:
+Queremos definir un lenguaje de marcado para representar los resultados de una liga de fútbol. La información que queremos guardar para cada partido es:
 
 - nombre del equipo local
 - nombre del equipo visitante
 - goles marcados por el equipo local
 - goles marcados por el equipo visitante
 
-En concreto, queremos representar la información de estos tres partidos.
+Escribe tres documentos que incluyan los siguientes resultados:
 
 - Nottingham Preesa: 0 - Inter de Mitente: 1
 - Vodka Juniors: 3 - Sparta da Risa: 3
 - Water of Munich: 4 - Esteaua is from the tap: 2
 
-Cada uno de los tres DTDs que vamos a definir tiene unas restricciones diferentes y son las siguientes:
+Cada documento incluirá una DTD distinta para representar ese lenguaje de marcado:
 
-1. DTD sin atributos, solo etiquetas
-2. DTD con los goles como atributos
-3. DTD en la que toda la información se almacena como atributos y los nodos, por lo tanto, son vacíos.
+1. DTD sin atributos, solo etiquetas (archivo: Exercise5-1.xml)
+2. DTD con los goles como atributos (archivo: Exercise5-2.xml)
+3. DTD en la que toda la información se almacena como atributos (archivo: Exercise5-3.xml)
 
-### Ejercicio 5-2
+### Ejercicio 5-2 (equivale al ejercicio 6)
 
-Crea una DTD para validar el archivo siguiente.
+Usa el archivo “beatles.xml”. Crea una DTD para validar el archivo anterior con el nombre “Exercise6.dtd”.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beatles>
-	<beatle link="http://www.paulmccartney.com">
-		<name>
-			<firstname>Paul</firstname>
-			<lastname>McCartney</lastname>
-		</name>
-	</beatle>
-	<beatle>
-		<name>
-			<firstname>John</firstname>
-			<lastname>Lennon</lastname>
-		</name>
-	</beatle>
-	<beatle link="http://www.georgeharrison.com">
-		<name>
-			<firstname>George</firstname>
-			<lastname>Harrison</lastname>
-		</name>
-	</beatle>
-	<beatle>
-		<name>
-			<firstname>Ringo</firstname>
-			<lastname>Starr</lastname>
-		</name>
-	</beatle>
-</beatles>
-```
+Guarda una copia de “beatles.xml” con la modificación para incluir la referencia a la DTD y llámala “Exercise6.xml”.
 
-### Ejercicio 5-3
+### Ejercicio 5-3 (equivale al ejercicio 7)
+
+Crea una DTD para validar los documentos XML que creaste para el ejercicio 4 de la tarea LM_UD1_T1.
+
+Para cada punto, haz una copia del archivo original modificando su contenido para incluir la referencia a la DTD. A continuación se indica el nombre que debe tener el documento DTD.
 
 | Nombre | País | Continente |
 | :---- | :---- | :---- |
 | Nueva Delhi | India | Asia |
 | Lisboa | Portugal | Europa |
-| Tánger | Marruecos | África |
+| Tánger | Egipto | África |
 
-Crea un XML que contenga la información de esta tabla teniendo en cuenta dos variaciones:
+1) Usa cada columna como una etiqueta (xml-doc: Exercise7-a.xml, dtd-doc: Exercise7-a.dtd)
+2) Usa *continent* como atributo de *country* (xml-doc: Exercise7-b.xml, dtd-doc: Exercise7-b.dtd)
 
-1) Usa cada columna como un nodo
-2) Usa *continente* como atributo de *pais*
+### Ejercicio 5-4 (equivale al ejercicio 8)
 
-Crea el DTD de cada una de las dos variaciones
+Crea una DTD para validar los documentos XML que creaste para el ejercicio 5 de la tarea LM_UD1_T1.
 
-### Ejercicio 5-4
+Para cada punto, haz una copia del archivo original modificando su contenido para incluir la referencia a la DTD.
 
 | Descripción del hecho histórico | Día | Mes | Año |
 | :---- | :---- | :---- | :---- |
@@ -717,23 +683,24 @@ Crea el DTD de cada una de las dos variaciones
 | Google se funda | 4 | 9 | 1998 |
 | Facebook se funda | 4 | 2 | 2004 |
 
-Crea un XML que contenga la información de esta tabla teniendo en cuenta dos variaciones:
-
 1) Usa cada columna como una etiqueta (xml-doc: Exercise8-a.xml, dtd-doc: Exercise8-a.dtd)
 2) Crea un nuevo documento XML donde una de esas columnas sea un atributo de otra (xml-doc: Exercise8-b.xml, dtd-doc: Exercise8-b.dtd)
 
-Crea el DTD de cada una de las dos variaciones
+### Ejercicio 5-5 (equivale al ejercicio 9)
 
-### Ejercicio 5-5
+Crea una DTD para validar el documento XML que creaste para el ejercicio 6 de la tarea LM_UD1_T1 y llámala “Exercise9.dtd”.
 
-| Institución         | Nombre                             | Página web                 |
-| ---                 | ---                                | ---                        |
-| IES Antonio Machado | Instituto Antonio Machado          | https://www.iesamachado.es |
-| Wikipedia           | La enciclopedia libre.             | http://www.wikipedia.org/  |
-| W3                  | El consorcio de la World Wide Web. | http://www.w3.org/         |
+Sin usar atributos, crea un documento XML que describa una lista de marcadores de páginas web. La información de cada página es el nombre, una breve descripción y su URL. Los datos de los marcadores son los que aparecen en la siguiente tabla.
 
-Teniendo en cuenta la información de la tabla crea un DTD y un fichero XML que respete lo siguiente:
+| IES Antonio Machado
+Instituto Antonio Machado.
+[https://www.iesamachado.es/](https://www.iesamachado.es/) |
+| :---- |
+| **Wikipedia**
+La enciclopedia libre.
+[http://www.wikipedia.org/](http://www.wikipedia.org/) |
+| **W3C**
+El consorcio de la World Wide Web.
+[http://www.w3.org/](http://www.w3.org/) |
 
-- Sin usar atributos, crea un documento XML y un DTD que describa la información de la tabla.
-- Únicamente con nodos de tipo vacío, representa la información anterior utilizando atributos.
-- Suponiendo que *página web* es un atributo del nodo *institución*, crea el XML y el DTD de la información anterior.
+No olvides incluir una copia modificada del archivo original “Exercise9.xml” con la referencia a su documento DTD.

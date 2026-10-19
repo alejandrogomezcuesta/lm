@@ -17,7 +17,7 @@
 
 - [Ejercicios como los que habrá en el examen](https://docs.google.com/document/d/1sE1-ItopnTTM-HURFJGtP_qRivcxmSgfQb0Bd3DVONE/edit?usp=classroom_web&authuser=0)
 - [Los mismos ejercicios en web](02-ejercicios.md)
-- [Solución de los ejercicios](03-ejercicios-solucion.md)
+- [Solución de los ejercicios](03-ejercicios-soluciones.md)
 
 
 ## Presentaciones complementarias
