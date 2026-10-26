@@ -1,5 +1,7 @@
 # XPath
 
+Esta página es un resumen de <https://www.eniun.com/tutorial-xpath>.
+
 ## 1. Qué es XPath
 
 XPath (*XML Path Language*) es un lenguaje que permite localizar y seleccionar partes concretas de un documento XML escribiendo el camino que hay que seguir hasta ellas. Fue desarrollado por el W3C y se usa también en XSLT, XQuery, en pruebas automáticas y en *web scraping*.
