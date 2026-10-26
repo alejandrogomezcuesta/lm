@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<biblioteca>
+    <seccion>
+        <nombre>Novela</nombre>
+        <libro id="l1" categoria="novela" anio="1949">
+            <titulo>1984</titulo>
+            <autor>George Orwell</autor>
+        </libro>
+        <libro id="l2" categoria="novela" anio="1925">
+            <titulo>El Gran Gatsby</titulo>
+            <autor>F. Scott Fitzgerald</autor>
+        </libro>
+    </seccion>
+    <seccion>
+        <nombre>Ensayo</nombre>
+        <libro id="l3" categoria="ensayo" anio="1929">
+            <titulo>Una habitación propia</titulo>
+            <autor>Virginia Woolf</autor>
+        </libro>
+    </seccion>
+</biblioteca>
