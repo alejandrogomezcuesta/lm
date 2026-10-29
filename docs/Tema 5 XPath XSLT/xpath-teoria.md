@@ -1,4 +1,4 @@
-# XPath
+# XPath (Teoría)
 
 Esta página es un resumen de <https://www.eniun.com/tutorial-xpath>.
 
@@ -28,10 +28,12 @@ Todos los ejemplos y ejercicios de este documento usan el mismo XML. Guárdalo e
         <libro id="l1" categoria="novela" anio="1949">
             <titulo>1984</titulo>
             <autor>George Orwell</autor>
+            <precio>60</precio>
         </libro>
         <libro id="l2" categoria="novela" anio="1925">
             <titulo>El Gran Gatsby</titulo>
             <autor>F. Scott Fitzgerald</autor>
+            <precio>45</precio>
         </libro>
     </seccion>
     <seccion>
@@ -39,6 +41,7 @@ Todos los ejemplos y ejercicios de este documento usan el mismo XML. Guárdalo e
         <libro id="l3" categoria="ensayo" anio="1929">
             <titulo>Una habitación propia</titulo>
             <autor>Virginia Woolf</autor>
+            <precio>30</precio>
         </libro>
     </seccion>
 </biblioteca>
@@ -48,7 +51,7 @@ La estructura es la siguiente:
 
 - La raíz es `biblioteca`, que contiene dos elementos `seccion`.
 - Cada `seccion` contiene un `nombre` y uno o varios `libro`.
-- Cada `libro` contiene un `titulo` y un `autor`.
+- Cada `libro` contiene un `titulo`, un `autor` y un `precio`.
 - Cada `libro` tiene los atributos `id`, `categoria` y `anio`.
 - En total hay 2 secciones, 3 libros, 3 títulos, 3 autores y 2 nombres de sección.
 
@@ -162,13 +165,53 @@ La combinación más útil de `..` consiste en **subir y bajar por otra rama** p
 | `//nombre/../libro` | Parte de cada nombre de sección, sube a la sección y baja a sus libros | 3 nodos: los tres `libro` |
 | `//nombre/../libro/titulo` | Igual que la anterior, pero baja un paso más hasta los títulos | 3 nodos: «1984», «El Gran Gatsby» y «Una habitación propia» |
 
-## 6. Nodos de comprobación o búsqueda
 
-Los predicados son condiciones escritas entre corchetes que permiten filtrar los nodos encontrados. En esta sección se usan para comprobar atributos, texto, posición y valores. La ruta sigue utilizando únicamente los ejes `/`, `//` y `..`; `@nombre` sirve aquí para comprobar el valor de un atributo dentro de un predicado, no como un paso adicional de navegación.
+## 6. Consultar atributos
 
-### Atributos
+Además de utilizar un atributo como condición, XPath permite seleccionarlo directamente. Para ello, se escribe `/@` seguido del nombre del atributo después del elemento cuyos atributos queremos consultar. La expresión selecciona los atributos, no los elementos que los contienen.
 
-Se escribe `@` seguido del nombre del atributo. Si se añade una comparación, solo se seleccionan los elementos cuyo atributo cumple la condición.
+| Expresión | Qué consulta | Resultado |
+| --- | --- | --- |
+| `//libro/@id` | El atributo `id` de cada libro | 3 valores: `l1`, `l2` y `l3` |
+| `//libro/@categoria` | El atributo `categoria` de cada libro | 3 valores: `novela`, `novela` y `ensayo` |
+| `//libro/@anio` | El atributo `anio` de cada libro | 3 valores: `1949`, `1925` y `1929` |
+
+A continuación veremos cómo utilizar los atributos para filtrar nodos según su valor.
+
+Los predicados son condiciones escritas entre corchetes que permiten filtrar los nodos encontrados. En esta sección se usan para comprobar atributos, texto, posición y valores. La ruta sigue utilizando únicamente los ejes `/`, `//` y `..`; en estas expresiones, `@nombre` se usa dentro de un predicado para comprobar el valor de un atributo, como se verá en el siguiente apartado.
+
+## 7. Nodos de comprobación o búsqueda
+
+### Comprobaciones utilizando el texto del nodo
+
+`text()` selecciona el contenido de un nodo, para que podamos buscar algún  texto que son hijos directos del elemento. Aunque se escribe con paréntesis, en XPath es una prueba de nodo, no una función como `position()` o `last()`. En `//titulo[text()='1984']`, el predicado comprueba si el texto del título es «1984» y, si lo es, selecciona ese elemento `titulo`.
+
+| Expresión | Qué comprueba | Resultado |
+| --- | --- | --- |
+| `//titulo[text()='1984']` | Que el texto del título sea exactamente «1984» | 1 nodo (un título): «1984» |
+| `//precio [text()>'45']` | Comprueba todos los precios que sean mayor que 45 | 1 nodo (un precio): 60 |
+
+!!! warning "Operadores de comparaciones"
+    Los operadores `=`, `<`, `>`, `<=` y `>=` comparan valores, tanto del texto del nodo, como de nodos hijo y atributos.
+
+!!! warning "Operadores lógicos para las comparaciones"
+    En base de datos veréis los operadores lógicos `and` y `or` para unir varias comparaciones. `and` exige que se cumplan ambas condiciones y `or` que se cumpla al menos una. Nosotros en esta asignatura no los vamos a usar más en algún ejemplo, sin embargo, también están disponibles.
+
+### Comprobaciones utilizando nodos hijos
+
+Las condiciones también pueden consultar el valor de un elemento hijo. En `//libro[precio > 50]`, `precio` es un nodo hijo de `libro`. Al comparar el contenido numérico de un nodo con un número, XPath selecciona los libros cuyo precio cumple la comparación.
+
+| Expresión | Qué comprueba | Resultado |
+| --- | --- | --- |
+| `//libro[precio = 60]` | Libros que el precio sea igual a 60 | 1 libro: (el que tiene como título) «1984» |
+| `//libro[precio < 50]/titulo` | Que el precio sea menor que 50 | 2 títulos: «El Gran Gatsby» y «Una habitación propia» |
+| `//libro[precio > 50]/titulo` | Que el precio sea mayor que 50 | 1 título: «1984» |
+| `//libro[precio <= 45]` | Que el precio sea menor o igual que 45 | 2 libros: (los que tienen como título) «El Gran Gatsby» y «Una habitación propia» |
+| `//libro[precio >= 45]/titulo` | Que el precio sea mayor o igual que 45 | 2 títulos: «1984» y «El Gran Gatsby» |
+
+### Comprobaciones usando atributos
+
+También se pueden realizar comparaciones sobre los atributos de un nodo. En este caso metemos entre corchetes el nombre del atributo y el operador de comparación. Es igual que las comprobaciones utilizando hijos pero ponemos una `@` para indicar que estamos comprobando con un atributo. Aquí tienes unos cuantos ejemplos.
 
 | Expresión | Qué selecciona | Resultado |
 | --- | --- | --- |
@@ -178,18 +221,25 @@ Se escribe `@` seguido del nombre del atributo. Si se añade una comparación, s
 | `//libro[@categoria='novela' and @anio < 1940]/titulo` | Los títulos que cumplen ambas condiciones | 1 nodo: «El Gran Gatsby» |
 | `//libro[@categoria='novela' or @categoria='ensayo']/titulo` | Los títulos que cumplen al menos una condición | 3 nodos: los tres títulos |
 
-### Texto, posición y comodín
+### Posición
+
+En un predicado numérico, como `[1]`, XPath comprueba la posición del nodo dentro del grupo de nodos que está evaluando. `position()` devuelve esa posición, que empieza en 1; por eso `[1]` equivale a `[position()=1]`. `last()` devuelve el número de nodos de ese grupo, es decir, la posición del último. Así, `[last()]` selecciona el último nodo. En estas consultas, los libros se consideran dentro de cada sección, por lo que la última expresión selecciona el último libro de cada sección.
 
 | Expresión | Qué comprueba | Resultado |
 | --- | --- | --- |
-| `//titulo[text()='1984']` | Que el texto del título sea exactamente «1984» | 1 nodo: «1984» |
 | `//libro[1]/titulo` | La posición del libro entre los hijos de cada sección | 2 nodos: «1984» y «Una habitación propia» |
+| `//libro[position()=1]/titulo` | Lo mismo que `[1]`, usando explícitamente `position()` | 2 nodos: «1984» y «Una habitación propia» |
 | `//libro[2]/titulo` | La posición del libro entre los hijos de cada sección | 1 nodo: «El Gran Gatsby» |
-| `//libro/*` | `*` representa cualquier elemento hijo de `libro` | 6 nodos: los títulos y autores de los tres libros |
+| `//libro[last()]/titulo` | El último libro entre los hijos de cada sección | 2 nodos: «El Gran Gatsby» y «Una habitación propia» |
+| `//libro[position()=last()]/titulo` | Lo mismo que `[last()]`, comparando la posición con el total de libros de cada sección | 2 nodos: «El Gran Gatsby» y «Una habitación propia» |
 
-Los operadores `=`, `<` y `>` comparan valores; `and` exige que se cumplan ambas condiciones y `or` que se cumpla al menos una. Los predicados no cambian los ejes usados para recorrer el documento.
+### Comodín
 
-## 7. Rutas absolutas y relativas
+| Expresión | Qué comprueba | Resultado |
+| --- | --- | --- |
+| `//libro/*` | `*` representa cualquier elemento hijo de `libro` | 9 nodos: los títulos, autores y precios de los tres libros |
+
+## 8. Rutas absolutas y relativas
 
 Una ruta XPath puede ser absoluta o relativa según desde dónde empiece.
 
@@ -213,7 +263,7 @@ Las rutas que empiezan por `//` también parten de la raíz del documento, aunqu
 
 La ruta relativa `libro/titulo` solo funciona si el nodo actual es el que contiene directamente a `libro`. Una ruta absoluta o una que empiece por `//` funciona siempre.
 
-## 8. Cómo comprobar las expresiones en Visual Studio Code
+## 9. Cómo comprobar las expresiones en Visual Studio Code
 
 Puedes ejecutar consultas XPath sobre tu documento con Visual Studio Code y la extensión gratuita **XML Tools de Josh Johnson**.
 
@@ -248,7 +298,7 @@ Puedes ejecutar consultas XPath sobre tu documento con Visual Studio Code y la e
 
 También puedes probar las expresiones en una herramienta online, por ejemplo la de [freeformatter.com](https://www.freeformatter.com/xpath-tester.html). Busca «XPath Tester» en un buscador, pega el XML, escribe la expresión y la herramienta muestra el resultado.
 
-## 9. Ejercicios
+## 10. Ejercicios
 
 Usa el documento `biblioteca.xml` de la sección 2. Escribe cada expresión usando únicamente los ejes `/`, `//` y `..`, y comprueba el resultado en Visual Studio Code. Las soluciones están al final.
 

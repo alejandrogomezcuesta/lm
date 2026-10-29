@@ -1,0 +1,39 @@
+### Soluciones
+
+| Nº | Expresión XPath | Resultado |
+|---:|---|---|
+| 1 | `/empresa` | El elemento raíz `empresa` |
+| 2 | `/empresa/nombre` | `TechSoluciones S.L.` |
+| 3 | `/empresa/departamento/nombre` | `Desarrollo` y `Sistemas` |
+| 4 | `//empleado` | Los tres elementos `empleado` |
+| 5 | `//proyecto` | Los tres elementos `proyecto` |
+| 6 | `//empleado/nombre` | `Ana López`, `Carlos Gómez` y `Lucía Martín` |
+| 7 | `//proyecto/nombre` | `App Móvil`, `Web Corporativa` y `Migración Cloud` |
+| 8 | `//empleado/*` | 10 elementos hijo directos: `nombre`, `edad`, `contacto` y `proyecto` de Ana; `nombre`, `edad` y `proyecto` de Carlos y Lucía |
+| 9 | `/empresa/@codigo` | `EMP-01` |
+| 10 | `//departamento/@id` | `DEP-DEV` y `DEP-SYS` |
+| 11 | `//proyecto/@codigo` | `PR-A`, `PR-B` y `PR-C` |
+| 12 | `//empleado[@rol='Senior']` | El empleado Carlos Gómez |
+| 13 | `//proyecto[@codigo='PR-B']` | El proyecto Web Corporativa |
+| 14 | `//empleado[@rol='Senior' or @rol='Junior']` | Carlos Gómez y Lucía Martín |
+| 15 | `//empleado[@id='E01']` | La empleada Ana López |
+| 16 | `//empleado/nombre[text()='Ana López']` | `Ana López` |
+| 17 | `//proyecto/nombre[text()='Migración Cloud']` | `Migración Cloud` |
+| 18 | `fecha` | `2023-01-15` |
+| 19 | `//empleado[edad > 35]` | Ana López y Carlos Gómez |
+| 20 | `//empleado[edad < 30]` | Lucía Martín |
+| 21 | `//empleado[edad = 50]` | Carlos Gómez |
+| 22 | `//empleado[edad <= 24]` | Lucía Martín |
+| 23 | `//empleado[edad >= 38]` | Ana López y Carlos Gómez |
+| 24 | `//departamento/empleado[1]` | Ana López y Lucía Martín |
+| 25 | `//departamento/empleado[position()=1]/nombre` | `Ana López` y `Lucía Martín` |
+| 26 | `//departamento/empleado[2]` | Carlos Gómez |
+| 27 | `//departamento/empleado[last()]` | Carlos Gómez y Lucía Martín |
+| 28 | `//departamento[@id='DEP-SYS']//proyecto` | El proyecto Migración Cloud |
+| 29 | `//departamento[@id='DEP-SYS']//proyecto/nombre` | `Migración Cloud` |
+| 30 | `//proyecto[nombre='Migración Cloud']/../../nombre` | `Sistemas` |
+| 31 | `//empleado[@rol='Senior']/../nombre` | `Desarrollo` |
+| 32 | `//proyecto[nombre='Web Corporativa']/../nombre` | `Carlos Gómez` |
+| 33 | `//empleado/contacto/email` | `ana@tech.com` |
+| 34 | `//empleado[@rol='Senior' and edad > 40]/nombre` | `Carlos Gómez` |
+| 35 | `//empleado[proyecto/fecha='2024-06-20']` | La empleada Lucía Martín |

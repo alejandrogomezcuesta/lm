@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<empresa codigo="EMP-01">
+    <nombre>TechSoluciones S.L.</nombre>
+    <fecha>2023-01-15</fecha>
+    <departamento id="DEP-DEV">
+        <nombre>Desarrollo</nombre>
+        <empleado id="E01" rol="Lider">
+            <nombre>Ana López</nombre>
+            <edad>38</edad>
+            <contacto>
+                <email>ana@tech.com</email>
+                <telefono>600111222</telefono>
+            </contacto>
+            <proyecto codigo="PR-A">
+                <nombre>App Móvil</nombre>
+                <fecha>2024-03-01</fecha>
+            </proyecto>
+        </empleado>
+        <empleado id="E02" rol="Senior">
+            <nombre>Carlos Gómez</nombre>
+            <edad>50</edad>
+            <proyecto codigo="PR-B">
+                <nombre>Web Corporativa</nombre>
+                <fecha>2024-05-10</fecha>
+            </proyecto>
+        </empleado>
+    </departamento>
+    <departamento id="DEP-SYS">
+        <nombre>Sistemas</nombre>
+        <empleado id="E03" rol="Junior">
+            <nombre>Lucía Martín</nombre>
+            <edad>24</edad>
+            <proyecto codigo="PR-C">
+                <nombre>Migración Cloud</nombre>
+                <fecha>2024-06-20</fecha>
+            </proyecto>
+        </empleado>
+    </departamento>
+</empresa>

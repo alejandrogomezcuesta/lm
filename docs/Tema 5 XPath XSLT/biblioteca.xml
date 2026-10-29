@@ -5,10 +5,12 @@
         <libro id="l1" categoria="novela" anio="1949">
             <titulo>1984</titulo>
             <autor>George Orwell</autor>
+            <precio>60</precio>
         </libro>
         <libro id="l2" categoria="novela" anio="1925">
             <titulo>El Gran Gatsby</titulo>
             <autor>F. Scott Fitzgerald</autor>
+            <precio>45</precio>
         </libro>
     </seccion>
     <seccion>
@@ -16,6 +18,7 @@
         <libro id="l3" categoria="ensayo" anio="1929">
             <titulo>Una habitación propia</titulo>
             <autor>Virginia Woolf</autor>
+            <precio>30</precio>
         </libro>
     </seccion>
 </biblioteca>
