@@ -2,7 +2,15 @@
 
 [Tutorial de Eniun de XSLT](https://www.eniun.com/tutorial-xslt/).
 
-## Esquema de cómo funciona
+De este tutorial, solo vamos a ver el elemento **`6.1. Elemento <xsl:value-of>`** y ninguno otro.
+
+## Ejercicios para practicar
+
+[Descárgate este fichero](biblioteca-xslt.zip).
+
+Descomprímelo y abre la carpeta descomprimida con Visual Studio Code.
+
+## Esquema de cómo funciona `<xsl:template>`
 
 ```flowchart TD
 A["Inicio: nodo_actual = '/'"] --> B{"¿Existe &lt;xsl:template&gt;<br/>que coincida con<br/>nodo_actual?"}
@@ -41,7 +49,7 @@ C7 --> B
 C4 -- NO --> E([Fin del procesamiento])
 ```
 
-## Diferentes salidas
+## Diferentes salidas para `<xsl:stylesheet>`
 
 Texto plano
 
