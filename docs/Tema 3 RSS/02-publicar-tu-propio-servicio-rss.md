@@ -50,7 +50,7 @@ En este momento ya puedes conectarte a la instancia usando la dirección IPv4 p�
 
 Abre bash en tu ordenador, desde la carpeta donde guardaste el fichero `.pem`. Sustituye el nombre de la clave y la IP por los tuyos. La cuenta predeterminada de Ubuntu en la imagen de AWS es `ubuntu`.
 
-```bash
+```bash linenums="1"
 # Abre una sesión segura en la instancia usando la clave privada y la IP pública estática.
 ssh -i .\asir-rss.pem ubuntu@IP_PUBLICA
 ```
@@ -59,7 +59,7 @@ Date cuenta que el modificador `-i` sirve para indicar el fichero de tu clave. D
 
 Si tras la ejecución de la orden anterior aparece una pregunta sobre la autenticidad del servidor, escribe `yes` solo si la IP corresponde a tu instancia. Ya dentro de Ubuntu, ejecuta:
 
-```bash
+```bash linenums="1"
 # Actualiza la lista de paquetes disponibles en Ubuntu.
 sudo apt update
 # Instala el servidor web Apache sin pedir confirmación interactiva.
@@ -86,21 +86,21 @@ Guarda el fichero como `feed.xml`. Puedes ayudarte para crearlo con Visual Studi
 
 Abre la terminal en la carpeta dondes esté el fichero `feed.xml`. La siguiente orden copia el fichero a la carpeta personal del usuario `ubuntu` de la instancia de AWS:
 
-```bash
+```bash linenums="1"
 # Copia el fichero feed.xml a la carpeta personal de Ubuntu.
 scp -i asir-rss.pem feed.xml ubuntu@IP_PUBLICA:~
 ```
 
 Ahora en el servidor ubuntu donde se está ejecutando Apache, conéctate con SSH (si no estabas ya conectado):
 
-```bash
+```bash linenums="1"
 # Nos conectamos al contenedor de ubuntu
 ssh -i asir-rss.pem ubuntu@IP_PUBLICA
 ```
 
 Dentro del contenedor, cambiamos el usuario y grupo del fichero así como sus permisos. Y movemos el fichero `feed.xml` a la carpeta `/var/www/html` para que Apache pueda trabajar con él.
 
-```bash
+```bash linenums="1"
 # Mueve el fichero `feed.xml` a la carpeta donde de Apache
 sudo mv ~/feed.xml /var/www/html/feed.xml
 # Cambia el usuario dueño y el grupo
@@ -151,14 +151,14 @@ El atributo `href=""` indica que dónde está el feed respecto de esta página `
 
 Como hicimos con el fichero `feed.xml`, ahora tenemos que subir este otro fichero `index.html` y configurar su usuario, grupo y permisos.
 
-```bash
+```bash linenums="1"
 # Nos conectamos al contenedor de ubuntu
 ssh -i asir-rss.pem ubuntu@IP_PUBLICA
 ```
 
 Dentro del contenedor movemos el fichero `index.xml` y lo configuramos para que Apache pueda trabajar con él tal y como hicimos con el fichero `feed.xml`.
 
-```bash
+```bash linenums="1"
 # Mueve el fichero `index.html` a la carpeta donde de Apache
 sudo mv ~/index.html /var/www/html/index.html
 # Cambia el usuario dueño y el grupo

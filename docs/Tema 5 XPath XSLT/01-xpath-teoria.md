@@ -20,7 +20,7 @@ En este documento se estudian los tres ejes más básicos:
 
 Todos los ejemplos y ejercicios de este documento usan el mismo XML. Guárdalo en un archivo llamado [`biblioteca.xml`](biblioteca.xml) para poder probar cada expresión.
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <biblioteca>
     <seccion>

@@ -18,7 +18,7 @@ Utiliza el complemento *XML de Red Hat* de *Visual Studio Code* para conseguir l
 
 Corrige este documento XML e indica las razones por las que está mal. Da una solución.
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <vehicles>
   <land>
@@ -40,7 +40,7 @@ Corrige este documento XML e indica las razones por las que está mal. Da una so
 
 Corrige este documento XML e indica las razones por las que está mal. Da una solución.
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <singers>
   <singer>

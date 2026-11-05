@@ -20,7 +20,7 @@ Corrige este documento XML e indica las razones por las que está mal. Da una so
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <vehicles>
   <land>
@@ -50,7 +50,7 @@ Corrige este documento XML e indica las razones por las que está mal. Da una so
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <singers>
   <singer>
@@ -86,7 +86,7 @@ Dada esta información, represéntala como un fichero XML, teniendo en cuenta lo
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <cities>
   <city>
@@ -119,7 +119,7 @@ Dada esta información, represéntala como un fichero XML, teniendo en cuenta lo
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <events>
   <event>
@@ -154,7 +154,7 @@ El consorcio que define la web: World Wide Web.
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <websites>
   <website>
@@ -181,7 +181,7 @@ Crea un fichero XML que represente las notas de los alumnos de un profesor que a
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <teacher>
   <subject name="Matemáticas">
@@ -221,7 +221,7 @@ Crea un fichero XML que represente la ruta de un autobús. Debes guardar el nomb
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <busRoute>
   <name>Ruta A</name>
@@ -246,7 +246,7 @@ Crea un fichero XML que represente un libro de recetas. Al menos debe haber dos 
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <cookbook>
   <recipe>
@@ -289,7 +289,7 @@ Dibuja el árbol de relaciones entre entidades que podríamos tener en las soluc
 
 ### Solución
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <relationships>
   <teacher>

@@ -6,7 +6,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-1
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE numbers [
   <!ELEMENT numbers (#PCDATA)>
@@ -19,7 +19,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-2
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE letters [
   <!ELEMENT letters (letter)>
@@ -34,7 +34,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-3
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE colors [
   <!ELEMENT colors (color*)>
@@ -49,7 +49,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-4
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flowers [
   <!ELEMENT flowers (flower+)>
@@ -64,7 +64,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-5
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE animales [
   <!ELEMENT animales (animal*)>
@@ -85,7 +85,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-6
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE writers [
   <!ELEMENT writers (writer*)>
@@ -108,7 +108,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-7
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE musicians [
   <!ELEMENT musicians (musician*)>
@@ -134,7 +134,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-8
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE agenda [
   <!ELEMENT agenda (contact*)>
@@ -161,7 +161,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 1-9
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE solarSystem [
   <!ELEMENT solarSystem (body*)>
@@ -188,7 +188,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-1
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE favourites [
   <!ELEMENT favourites (bookmark)>
@@ -210,7 +210,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-2
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE anniversaires [
   <!ELEMENT anniversaires (anniversaire+)>
@@ -237,7 +237,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-3
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE airports [
   <!ELEMENT airports (airport*)>
@@ -260,7 +260,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-4
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flights [
   <!ELEMENT flights (flight*)>
@@ -284,7 +284,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-5
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE spanishKings [
   <!ELEMENT spanishKings (king*, queen*)>
@@ -316,7 +316,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-6
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE countries [
   <!ELEMENT countries (country*)>
@@ -345,7 +345,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-7
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE colors [
   <!ELEMENT colors (color*)>
@@ -374,7 +374,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-8
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE accounting [
   <!ELEMENT accounting (note*)>
@@ -404,7 +404,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 2-9
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE messages [
   <!ELEMENT messages (message+)>
@@ -438,7 +438,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 3-1
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE person [
   <!ELEMENT person EMPTY>
@@ -450,7 +450,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 3-2
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE movie [
   <!ELEMENT movie EMPTY>
@@ -463,7 +463,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 3-3
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE paintings [
   <!ELEMENT paintings (painting*)>
@@ -480,7 +480,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 3-4
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE shoppingList [
   <!ELEMENT shoppingList (item*)>
@@ -497,7 +497,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 3-5
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE football [
   <!ELEMENT football (player*)>
@@ -516,7 +516,7 @@ Los siguientes documentos no son válidos porque contienen uno o dos errores (lo
 
 ### Ejercicio 3-6
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE football [
   <!ELEMENT football ((player | team)*)>
@@ -544,7 +544,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 4-1
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book [
   <!ELEMENT book EMPTY>
@@ -556,7 +556,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 4-2
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE inventors [
   <!ELEMENT inventors (inventor*)>
@@ -575,7 +575,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 4-3
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE thingsToDo [
   <!ELEMENT thingsToDo (thing+)>
@@ -592,7 +592,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 4-4
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE resolutions [
   <!ELEMENT resolutions (resolucion+)>
@@ -611,7 +611,7 @@ Los siguientes documentos no son válidos porque contienen errores en la DTD int
 
 ### Ejercicio 4-5
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mortadeloAlbums [
   <!ELEMENT mortadeloAlbums (album*)>
@@ -657,7 +657,7 @@ Cada uno de los tres DTDs que vamos a definir tiene unas restricciones diferente
 
 Crea una DTD para validar el archivo siguiente.
 
-```xml
+```xml linenums="1"
 <?xml version="1.0" encoding="UTF-8"?>
 <beatles>
 	<beatle link="http://www.paulmccartney.com">
