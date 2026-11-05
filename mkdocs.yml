@@ -73,5 +73,9 @@ extra:
 
 extra_javascript:
   - https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs
+  - javascripts/links.js
+
+extra_css:
+  - javascripts/links.css
 
 # MkDocs genera automáticamente la navegación a partir de docs/ al omitir nav:.

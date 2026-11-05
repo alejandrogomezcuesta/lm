@@ -12,12 +12,10 @@ Descomprímelo y abre la carpeta descomprimida con Visual Studio Code.
 
 ## Esquema de cómo funciona `<xsl:template>`
 
-El esquema de cómo funciona xslt utilizando la función `<xslt:template>` lo tienes en diferentes formatos:
+El esquema de cómo funciona xslt utilizando la función `<xslt:template>` lo tienes para descargártelo aquí.
 
 
-1. [png](como-funciona-xslt.png){target="_blank"}.
-2. [svg](como-funciona-xslt.svg){target="_blank"}.
-3. [pdf](como-funciona-xslt.pdf){target="_blank"}.
+* [Esquema de cómo funciona xslt](como-funciona-xslt.pdf){target="_blank"}.
 
 
 ## Diferentes salidas para `<xsl:stylesheet>`
